@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: "/GFG_OFFICIAL-Website",
+  basePath: isProd ? "/GFG_OFFICIAL-Website" : "",
   trailingSlash: true,
   images: {
     unoptimized: true,
