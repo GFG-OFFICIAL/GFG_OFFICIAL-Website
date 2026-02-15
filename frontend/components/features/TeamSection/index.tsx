@@ -69,7 +69,7 @@ const DUMMY_TEAM: TeamMember[] = [
         joinedDate: "2024",
         social: {
             linkedin: "https://linkedin.com/in/mukesh-kumar-padhi07",
-            github: "https://github.com/mukesh663"
+            github: "https://github.com/Mukeshkup"
         },
         stats: { projectsLed: 6, eventsOrganized: 5, contributionScore: 92 }
     },

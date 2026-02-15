@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/middleware.ts"],"sourcesContent":["import { NextResponse } from 'next/server'\r\nimport type { NextRequest } from 'next/server'\r\n// import { createClient } from '@supabase/supabase-js'\r\n\r\n// Note: In a real app with Supabase Auth helpers, we would use createMiddlewareClient\r\n// For now, we'll outline the logic.\r\n\r\nexport async function middleware(_request: NextRequest) {\r\n    // Logic to check session and role would go here.\r\n    // const supabase = createMiddlewareClient({ req: request, res: response })\r\n    // const { data: { session } } = await supabase.auth.getSession()\r\n\r\n    // For this initial setup, we will just allow access but logging it.\r\n    // In production, checking 'user.role' would happen here or in a per-layout check.\r\n\r\n    return NextResponse.next()\r\n}\r\n\r\nexport const config = {\r\n    matcher: [\r\n        '/admin/:path*',\r\n        '/dashboard/:path*',\r\n    ],\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAA;AAAA;;AAOO,eAAe,WAAW,QAAqB;IAClD,iDAAiD;IACjD,2EAA2E;IAC3E,iEAAiE;IAEjE,oEAAoE;IACpE,kFAAkF;IAElF,OAAO,gMAAY,CAAC,IAAI;AAC5B;AAEO,MAAM,SAAS;IAClB,SAAS;QACL;QACA;KACH;AACL"}}]
-}

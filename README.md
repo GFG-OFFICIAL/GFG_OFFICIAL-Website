@@ -35,8 +35,6 @@ A modern, high-performance Progressive Web Application (PWA) designed for **Geek
 ```text
 .
 ├── frontend/          # Next.js application (UI, components, logic)
-├── backend/           # Database migrations and seed data
-├── supabase/          # Supabase configuration and CLI setup
 └── README.md          # Project documentation
 ```
 ---
