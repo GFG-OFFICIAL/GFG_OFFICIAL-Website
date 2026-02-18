@@ -39,9 +39,7 @@ export function AboutSection() {
                         >
                             <p>
                                 <strong className="text-foreground">GeeksforGeeks Student Chapter ITER</strong> is not just a club; it's a{" "}
-                                <GradientText gradient="primary">
                                     high-performance compiler
-                                </GradientText>{" "}
                                 for your career. We are a community of passionate developers, designers, and innovators.
                             </p>
                             <p>
@@ -61,11 +59,11 @@ export function AboutSection() {
                             className="grid grid-cols-2 gap-4"
                         >
                             <div className="p-4 rounded-lg bg-card/50 border border-white/5 hover:border-primary/30 transition-colors">
-                                <h3 className="text-3xl font-bold font-mono text-white mb-2">500+</h3>
+                                <h3 className="text-3xl font-bold font-mono text-white mb-2">103</h3>
                                 <p className="text-sm text-muted-foreground uppercase tracking-wider">Active Members</p>
                             </div>
                             <div className="p-4 rounded-lg bg-card/50 border border-white/5 hover:border-secondary/30 transition-colors">
-                                <h3 className="text-3xl font-bold font-mono text-white mb-2">50+</h3>
+                                <h3 className="text-3xl font-bold font-mono text-white mb-2">5</h3>
                                 <p className="text-sm text-muted-foreground uppercase tracking-wider">Events Hosted</p>
                             </div>
                         </motion.div>
