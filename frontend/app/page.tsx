@@ -15,6 +15,7 @@ import { BentoSection } from "@/components/features/BentoSection"
 import { FadeIn } from "@/components/ui/interacts"
 
 export default function Home() {
+  // Final deployment trigger
   return (
     <div className="min-h-screen flex flex-col bg-[#050505] font-sans selection:bg-primary/20 selection:text-primary overflow-x-hidden">
       {/* Global Background Systems */}
