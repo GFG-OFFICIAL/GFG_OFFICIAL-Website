@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useRef, useState } from "react"
 import NextImage from "next/image"
 import { cn } from "@/lib/utils"
-// @ts-ignore
+// @ts-expect-error logo import
 import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 
 interface TeamMember {

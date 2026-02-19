@@ -4,7 +4,7 @@ import { LogOut, User, Terminal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-// @ts-ignore
+// @ts-expect-error logo import
 import gfgLogo from "@/assets/gfg-official-logo.png"
 import { motion } from "framer-motion"
 

@@ -25,8 +25,10 @@ export function ImageWithLoader({
 
     useEffect(() => {
         // Reset states when src changes
-        setIsLoading(true)
-        setHasError(false)
+        Promise.resolve().then(() => {
+            setIsLoading(true)
+            setHasError(false)
+        })
 
         // Create a new image to preload
         const img = new Image()

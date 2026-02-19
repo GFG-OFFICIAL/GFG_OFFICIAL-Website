@@ -11,7 +11,7 @@ const DUMMY_TEAM: TeamMember[] = [
         name: "Subasis Mishra",
         role: "President",
         position: "COMMANDER",
-        photo: "https://drive.google.com/file/d/1t7d2EvGk9oA5kEvRbfqFYI2etHXItqx9/view?usp=drivesdk",
+        photo: "https://github.com/subasis3124.png",
         email: "subasis@gfg.com",
         specialty: "Strategic Vision",
         bio: "Leading the future of tech.",
@@ -26,7 +26,7 @@ const DUMMY_TEAM: TeamMember[] = [
         name: "Vivek Ranjan Sahoo",
         role: "Vice President",
         position: "XO",
-        photo: "https://drive.google.com/file/d/1WidyHrHPSSssYKRSf5lU647XbbaMHBvS/view?usp=drivesdk",
+        photo: "/images/team/vivek.jpg",
         email: "vivek@gfg.com",
         specialty: "Operations & Tech",
         bio: "Orchestrating excellence.",
@@ -45,14 +45,17 @@ const DUMMY_TEAM: TeamMember[] = [
         name: "Raj Sahasransu Biswal",
         role: "Tech Lead",
         position: "ARCHITECT",
-        photo: "https://drive.google.com/file/d/1ESw7dawoICgve29tWK85fgN2-pFY3_dz/view?usp=drivesdk",
+        photo: "/images/team/raj.jpg",
         email: "raj@gfg.com",
         specialty: "Technical Architecture",
         bio: "Driving technical innovation.",
         achievements: [],
         skills: ["Java", "Cloud Arch"],
         joinedDate: "2024",
-        social: { linkedin: "https://linkedin.com/in/raj-sahasransu-biswal" },
+        social: {
+            linkedin: "https://linkedin.com/in/raj-sahasransu-biswal",
+            github: "https://github.com/sahasransuraj08"
+        },
         stats: { projectsLed: 8, eventsOrganized: 4, contributionScore: 94 }
     },
     {
@@ -60,7 +63,7 @@ const DUMMY_TEAM: TeamMember[] = [
         name: "Mukesh Kumar Padhi",
         role: "Management Lead",
         position: "STRATEGIST",
-        photo: "https://drive.google.com/file/d/1IBk0FPO9lWcaHMLli0Duu81MFH7-Jp9w/view?usp=drivesdk",
+        photo: "/images/team/mukesh.jpg",
         email: "mukesh@gfg.com",
         specialty: "Strategic Management",
         bio: "Optimizing operational efficiency.",
@@ -78,15 +81,17 @@ const DUMMY_TEAM: TeamMember[] = [
         name: "Runjhun Pradhan",
         role: "Media Lead",
         position: "DIRECTOR",
-        photo: "https://drive.google.com/file/d/1-vDPnqy-hwgDKoyx2zETb_D102e6_Rce/view?usp=drivesdk",
+        photo: "/images/team/runjhun.jpg",
         email: "runjhun@gfg.com",
         specialty: "Creative Direction",
         bio: "Visualizing the brand identity.",
         achievements: [],
         skills: ["Design", "Branding"],
         joinedDate: "2024",
-        social: { linkedin: "https://linkedin.com/in/runjhun-pradhan",
-            github: "https://github.com/RunjhunPradhan27" },
+        social: {
+            linkedin: "https://linkedin.com/in/runjhun-pradhan",
+            github: "https://github.com/RunjhunPradhan27"
+        },
         stats: { projectsLed: 5, eventsOrganized: 6, contributionScore: 91 }
     },
     {
@@ -101,8 +106,10 @@ const DUMMY_TEAM: TeamMember[] = [
         achievements: [],
         skills: ["Communication", "Outreach"],
         joinedDate: "2024",
-        social: { linkedin: "https://linkedin.com/in/ayush-ranjan-pradhan-008468309",
-            github: "https://github.com/InfernoX21"  },
+        social: {
+            linkedin: "https://linkedin.com/in/ayush-ranjan-pradhan-008468309",
+            github: "https://github.com/InfernoX21"
+        },
         stats: { projectsLed: 4, eventsOrganized: 8, contributionScore: 93 }
     }
 ]

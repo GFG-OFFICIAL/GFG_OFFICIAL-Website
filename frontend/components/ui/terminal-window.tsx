@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Monitor, X, Minus, Square } from "lucide-react"
+import { Monitor } from "lucide-react"
 
 interface TerminalWindowProps extends React.HTMLAttributes<HTMLDivElement> {
     title?: string

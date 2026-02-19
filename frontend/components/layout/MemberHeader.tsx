@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { LogOut, Terminal, Shield, Home } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-// @ts-ignore
+// @ts-expect-error logo import
 import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 
 export function MemberHeader() {

@@ -236,7 +236,7 @@ export function HeroSection() {
     )
 }
 
-function FeatureBadge({ icon: Icon, label, value }: { icon: any, label: string, value: string }) {
+function FeatureBadge({ icon: Icon, label, value }: { icon: typeof Code2, label: string, value: string }) {
     return (
         <motion.div
             initial={{ opacity: 0 }}

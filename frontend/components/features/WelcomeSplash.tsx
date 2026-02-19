@@ -11,15 +11,14 @@ export const WelcomeSplash = () => {
         const hasSeenSplash = sessionStorage.getItem("hasSeenSplashNeo")
         if (hasSeenSplash) {
             setIsVisible(false)
-            return
+        } else {
+            const timer = setTimeout(() => {
+                setIsVisible(false)
+                sessionStorage.setItem("hasSeenSplashNeo", "true")
+            }, 3500)
+
+            return () => clearTimeout(timer)
         }
-
-        const timer = setTimeout(() => {
-            setIsVisible(false)
-            sessionStorage.setItem("hasSeenSplashNeo", "true")
-        }, 3500)
-
-        return () => clearTimeout(timer)
     }, [])
 
     return (

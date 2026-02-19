@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Award, Coffee, Users, ChevronRight, Calendar, Image as ImageIcon, ArrowRight, LayoutGrid, List } from "lucide-react"
+import { Award, Coffee, Users, ChevronRight, Calendar, Image as ImageIcon, ArrowRight, LayoutGrid, List, Clock, MapPin, UserCheck, Tag, FileText, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SplitScreenLayout } from "@/components/ui/SplitScreenLayout"
 import { Breadcrumb } from "@/components/ui/Breadcrumb"
@@ -21,44 +21,80 @@ export function EvolutionTimeline() {
     const [lightboxMedia, setLightboxMedia] = useState<MediaItem[] | null>(null)
     const [lightboxIndex, setLightboxIndex] = useState(0)
 
-    const sections = timelineData
+    const sections = useMemo(() => timelineData, [])
     const isSplitViewOpen = viewState.level === 'split-view'
 
-    // Navigation functions
-    const openSection = (sectionId: string) => {
+    // Lock body scroll when split view is open
+    useEffect(() => {
+        if (isSplitViewOpen) {
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+            const originalBodyOverflow = document.body.style.overflow
+            const originalBodyPaddingRight = document.body.style.paddingRight
+            const originalHtmlOverflow = document.documentElement.style.overflow
+            const scrollY = window.scrollY
+
+            // Prevent scrolling on body and html
+            document.body.style.overflow = 'hidden'
+            document.body.style.paddingRight = `${scrollbarWidth}px`
+            document.body.style.position = 'fixed'
+            document.body.style.top = `-${scrollY}px`
+            document.body.style.width = '100%'
+            document.documentElement.style.overflow = 'hidden'
+
+            return () => {
+                // Restore original styles
+                document.body.style.overflow = originalBodyOverflow
+                document.body.style.paddingRight = originalBodyPaddingRight
+                document.body.style.position = ''
+                document.body.style.top = ''
+                document.body.style.width = ''
+                document.documentElement.style.overflow = originalHtmlOverflow
+
+                // Restore scroll position
+                window.scrollTo(0, scrollY)
+            }
+        }
+    }, [isSplitViewOpen])
+
+    // Navigation functions - memoized with useCallback
+    const openSection = useCallback((sectionId: string) => {
         setViewState({ level: 'split-view', sectionId })
-    }
+    }, [])
 
-    const navigateToSubsection = (sectionId: string, subsectionId: string) => {
+    const navigateToSubsection = useCallback((sectionId: string, subsectionId: string) => {
         setViewState({ level: 'split-view', sectionId, subsectionId })
-    }
+    }, [])
 
-    const closeSplitView = () => {
+    const closeSplitView = useCallback(() => {
         setViewState({ level: 'overview' })
-    }
+    }, [])
 
-    const openLightbox = (media: MediaItem[], index: number) => {
+    const openLightbox = useCallback((media: MediaItem[], index: number) => {
         setLightboxMedia(media)
         setLightboxIndex(index)
-    }
+    }, [])
 
-    // Get current active data
-    const currentSection = viewState.level === 'split-view'
-        ? sections.find(s => s.id === viewState.sectionId)
-        : undefined
+    // Get current active data - memoized
+    const currentSection = useMemo(() => {
+        return viewState.level === 'split-view'
+            ? sections.find(s => s.id === viewState.sectionId)
+            : undefined
+    }, [viewState, sections])
 
-    const currentSubsection = viewState.level === 'split-view' && currentSection && viewState.subsectionId
-        ? currentSection.subsections?.find(sub => sub.id === viewState.subsectionId)
-        : undefined
+    const currentSubsection = useMemo(() => {
+        return viewState.level === 'split-view' && currentSection && viewState.subsectionId
+            ? currentSection.subsections?.find(sub => sub.id === viewState.subsectionId)
+            : undefined
+    }, [viewState, currentSection])
 
-    // Icon mapping
-    const iconMap = {
+    // Icon mapping - memoized
+    const iconMap = useMemo(() => ({
         "foundation": Award,
         "chai-links": Coffee,
         "founders": Users
-    }
+    }), [])
 
-    const colorClasses = {
+    const colorClasses = useMemo(() => ({
         primary: {
             bg: "bg-emerald-500/10",
             border: "border-emerald-500/30",
@@ -83,19 +119,39 @@ export function EvolutionTimeline() {
             gradient: "from-green-400/20 to-transparent",
             hoverBg: "hover:bg-green-400/20"
         }
-    }
+    }), [])
 
     return (
-        <section className="relative py-[8vh] overflow-hidden bg-background min-h-screen flex items-center" id="evolution">
-            {/* Background Effects */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_hsl(var(--primary)/0.05),transparent_70%)]" />
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-            <div className="absolute inset-0 opacity-5 pointer-events-none">
-                <div className="absolute inset-0" style={{
-                    backgroundImage: 'linear-gradient(hsl(var(--primary)/0.1) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)/0.1) 1px, transparent 1px)',
-                    backgroundSize: '50px 50px'
-                }} />
-            </div>
+        <section className={cn(
+            "relative py-[8vh] bg-background min-h-screen flex items-center transition-all duration-300",
+            isSplitViewOpen ? "overflow-hidden" : "overflow-hidden"
+        )} id="evolution">
+            {/* Global Blur Overlay - covers navbar and everything when split view is open */}
+            <AnimatePresence>
+                {isSplitViewOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-[55] backdrop-blur-xl bg-black/30 pointer-events-none"
+                    />
+                )}
+            </AnimatePresence>
+
+            {/* Background Effects - optimized */}
+            {!isSplitViewOpen && (
+                <>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_hsl(var(--primary)/0.05),transparent_70%)]" />
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+                    <div className="absolute inset-0 opacity-5 pointer-events-none">
+                        <div className="absolute inset-0" style={{
+                            backgroundImage: 'linear-gradient(hsl(var(--primary)/0.1) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)/0.1) 1px, transparent 1px)',
+                            backgroundSize: '50px 50px'
+                        }} />
+                    </div>
+                </>
+            )}
 
             <div className="container relative z-10 px-6">
                 {/* Header */}
@@ -103,7 +159,10 @@ export function EvolutionTimeline() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-[5vh]"
+                    className={cn(
+                        "text-center mb-[5vh] transition-all duration-200",
+                        isSplitViewOpen && "blur-xl opacity-20 pointer-events-none"
+                    )}
                 >
                     <motion.span
                         initial={{ scale: 0.9, opacity: 0 }}
@@ -121,12 +180,15 @@ export function EvolutionTimeline() {
                         </span>
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
-                        Explore our chapter's milestones through an immersive visual journey
+                        Explore our chapter&apos;s milestones through an immersive visual journey
                     </p>
                 </motion.div>
 
                 {/* Overview Cards */}
-                <div className="max-w-6xl mx-auto grid gap-8">
+                <div className={cn(
+                    "max-w-6xl mx-auto grid gap-8 transition-all duration-200",
+                    isSplitViewOpen && "blur-xl opacity-25 pointer-events-none"
+                )}>
                     {sections.map((section, index) => {
                         const colors = colorClasses[section.color as keyof typeof colorClasses]
                         const Icon = iconMap[section.id as keyof typeof iconMap]
@@ -141,29 +203,29 @@ export function EvolutionTimeline() {
                                 initial={{ opacity: 0, x: -30 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.15, type: "spring", stiffness: 100 }}
-                                whileHover={{ scale: 1.01, y: -4 }}
+                                transition={{ delay: index * 0.1, type: "spring", stiffness: 120, damping: 20 }}
+                                whileHover={{ scale: 1.01, y: -2 }}
                                 whileTap={{ scale: 0.99 }}
                                 className={cn(
                                     "group relative glass-card rounded-3xl p-8 md:p-12",
-                                    "border-2 transition-all duration-500",
+                                    "border-2 transition-all duration-200",
                                     "hover:border-primary/50",
                                     colors.border,
                                     "text-left w-full overflow-hidden"
                                 )}
                             >
                                 <div className={cn(
-                                    "absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity duration-500",
+                                    "absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity duration-200",
                                     colors.gradient
                                 )} />
 
                                 <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                                     <div className="flex items-center gap-6">
                                         <div className={cn(
-                                            "relative p-5 rounded-2xl transition-all duration-500",
+                                            "relative p-5 rounded-2xl transition-all duration-200",
                                             colors.bg,
                                             colors.text,
-                                            "group-hover:scale-110"
+                                            "group-hover:scale-105"
                                         )}>
                                             <Icon className="w-8 h-8 md:w-10 md:h-10" />
                                         </div>
@@ -259,7 +321,7 @@ function NavigationPanel({
 }: NavigationPanelProps) {
     return (
         <div className="p-6 md:p-8 space-y-8 min-h-full">
-            <div className="mb-8">
+            <div className="mb-8 pt-10 md:pt-12">
                 <h3 className="text-xs font-mono uppercase text-muted-foreground mb-4 tracking-widest">
                     Chapters
                 </h3>
@@ -308,7 +370,7 @@ function NavigationPanel({
                                     className={cn(
                                         "w-full text-left px-4 py-2.5 rounded-lg text-sm transition-all duration-200 block relative",
                                         isSubActive
-                                            ? "bg-white/5 text-white font-medium pl-6"
+                                            ? "bg-white/15 text-white font-medium pl-6"
                                             : "text-muted-foreground hover:text-white hover:pl-6"
                                     )}
                                 >
@@ -367,12 +429,95 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                         {subsection.description}
                     </p>
 
-                    {subsection.date && (
-                        <div className="flex items-center gap-2 mt-6 text-sm font-mono text-muted-foreground/80">
-                            <Calendar className="w-4 h-4" />
-                            <span>{subsection.date}</span>
+                    {/* Event Details Cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                        {subsection.date && (
+                            <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                        <Calendar className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Date</p>
+                                        <p className="text-sm font-medium text-white">{subsection.date}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {subsection.time && (
+                            <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                        <Clock className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Time</p>
+                                        <p className="text-sm font-medium text-white">{subsection.time}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {subsection.location && (
+                            <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                        <MapPin className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Location</p>
+                                        <p className="text-sm font-medium text-white">{subsection.location}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {subsection.attendees && (
+                            <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                        <UserCheck className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Participants</p>
+                                        <p className="text-sm font-medium text-white">{subsection.attendees}+</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {/* Additional tabs with titles only */}
+                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <Clock className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Time</p>
+                                    <p className="text-sm font-medium text-white/50">—</p>
+                                </div>
+                            </div>
                         </div>
-                    )}
+                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <MapPin className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Location</p>
+                                    <p className="text-sm font-medium text-white/50">—</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <UserCheck className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Participants</p>
+                                    <p className="text-sm font-medium text-white/50">—</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="min-h-[400px]">
@@ -414,6 +559,27 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                 <p className="text-xl text-muted-foreground max-w-2xl">
                     {section.subtitle}
                 </p>
+
+                {section.id === "chai-links" && (
+                    <p className="text-sm md:text-base text-muted-foreground/80 leading-snug max-w-2xl mt-4">
+                        Designed to foster a relaxed and collaborative learning environment, Chai Links serves as an open platform for students and faculty to engage in meaningful discussions over a cup of chai. The initiative aims to break the conventional teacher–student barrier, encouraging informal conversations, idea exchange, and curiosity-driven learning beyond the classroom setting.
+                        <br />
+                        <br />
+                        Through interactive dialogue and shared perspectives, Chai Links promotes interdisciplinary thinking, mentorship, and a stronger sense of academic and technical community within ITER. It creates a space where questions flow freely, ideas evolve naturally, and learning becomes a shared experience rather than a formal interaction.
+                    </p>
+                )}
+
+                {section.id === "founders" && (
+                    <p className="text-sm md:text-base text-muted-foreground/80 leading-snug max-w-2xl mt-4">
+                        The GFG Campus Body ITER organized Founders Unplugged: From Chaos to Creation, an interactive entrepreneurial session aimed at inspiring and informing students about the realities of startup culture. The event brought together aspiring entrepreneurs and curious minds for an open conversation on innovation, risk-taking, and building ventures from the ground up.
+                        <br />
+                        <br />
+                        Through candid storytelling, the session highlighted real startup journeys, honest failures, pivotal lessons, and the unpredictable path from idea to execution. Participants had the opportunity to engage directly with founders during a live interaction segment, gaining practical insights that extend beyond traditional classroom learning.
+                        <br />
+                        <br />
+                        The event created a platform for clarity, inspiration, and meaningful dialogue, encouraging students to explore entrepreneurship with a realistic and informed perspective.
+                    </p>
+                )}
             </div>
 
             {section.media && section.media.length > 0 && (

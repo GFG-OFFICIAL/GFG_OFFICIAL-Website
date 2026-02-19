@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useMemo } from "react"
 
 interface FloatingShapesProps {
     className?: string
@@ -9,14 +10,14 @@ interface FloatingShapesProps {
 }
 
 export function FloatingShapes({ className, count = 5 }: FloatingShapesProps) {
-    const shapes = Array.from({ length: count }, (_, i) => ({
+    const shapes = useMemo(() => Array.from({ length: count }, (_, i) => ({
         size: Math.random() * 200 + 100,
         left: `${Math.random() * 100}%`,
         top: `${Math.random() * 100}%`,
         delay: Math.random() * 5,
         duration: Math.random() * 10 + 15,
         shape: ["circle", "square", "triangle"][Math.floor(Math.random() * 3)]
-    }))
+    })), [count])
 
     return (
         <div className={cn("absolute inset-0 overflow-hidden pointer-events-none", className)}>

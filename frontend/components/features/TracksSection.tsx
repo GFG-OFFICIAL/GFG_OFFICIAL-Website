@@ -160,7 +160,7 @@ export function TracksSection() {
                         className="mb-4"
                     >
                         <span className="text-sm font-mono text-primary font-bold tracking-[0.3em] uppercase">
-                            // DOMAINS
+                            {"//"} DOMAINS
                         </span>
                     </motion.div>
 

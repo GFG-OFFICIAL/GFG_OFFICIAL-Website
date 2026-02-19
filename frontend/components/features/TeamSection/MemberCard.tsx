@@ -24,6 +24,19 @@ const ROLE_COLORS: Record<string, { primary: string, bg: string, border: string 
     "Member": { primary: "text-gray-400", bg: "bg-gray-500/10", border: "border-gray-500/30" }
 }
 
+const normalizeGDriveUrl = (url: string) => {
+    if (url.includes('drive.google.com')) {
+        // Handle "file/d/ID/view" format
+        const fileIdMatch = url.match(/\/d\/(.+?)\//);
+        if (fileIdMatch) return `https://lh3.googleusercontent.com/u/0/d/${fileIdMatch[1]}`;
+
+        // Handle "id=ID" format
+        const idParamMatch = url.match(/id=(.+?)(&|$)/);
+        if (idParamMatch) return `https://lh3.googleusercontent.com/u/0/d/${idParamMatch[1]}`;
+    }
+    return url;
+}
+
 export function MemberCard({ member, index, isLeadership = false }: MemberCardProps) {
     const colors = ROLE_COLORS[member.role] || ROLE_COLORS["Member"]
 
@@ -74,7 +87,7 @@ export function MemberCard({ member, index, isLeadership = false }: MemberCardPr
                     <div className="absolute inset-1 rounded-full bg-secondary overflow-hidden">
                         {/* Image handling */}
                         <img
-                            src={member.photo}
+                            src={normalizeGDriveUrl(member.photo)}
                             alt={member.name}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             onError={(e) => {

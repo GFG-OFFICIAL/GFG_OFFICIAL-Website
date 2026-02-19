@@ -5,7 +5,7 @@ import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-// @ts-ignore
+// @ts-expect-error logo import
 import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 import {
     LayoutDashboard,

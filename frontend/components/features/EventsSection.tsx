@@ -95,187 +95,163 @@ const THEMES = {
         glow: "group-hover:opacity-100"
     }
 }
+// Mock Event Data
+const EVENTS: ExtendedEvent[] = [
+    {
+        id: "ev1",
+        title: "Introduction to Competitive Programming",
+        description: "A deep dive into common data structures and algorithms used in competitive programming competitions.",
+        date: "2026-03-15",
+        time: "10:00 AM - 01:00 PM",
+        location: "Block 1, Seminar Hall",
+        category: "Workshop",
+        type: "upcoming",
+        theme: "blue",
+        tags: ["CP", "Algorithms", "DSA"],
+        registration: {
+            status: "Open",
+            capacity: 100,
+            registered: 65,
+            deadline: "2026-03-14",
+            link: "#register"
+        }
+    },
+    {
+        id: "ev2",
+        title: "GFG Hack-A-Thon 2026",
+        description: "Join us for 24 hours of coding, innovation, and fun as we build solutions for real-world problems.",
+        date: "2026-04-10",
+        time: "09:00 AM onwards",
+        location: "Main Auditorium",
+        category: "Hackathon",
+        type: "upcoming",
+        theme: "purple",
+        tags: ["Hackathon", "Dev", "Innovation"],
+        registration: {
+            status: "Open",
+            capacity: 200,
+            registered: 120,
+            deadline: "2026-04-05",
+            link: "#register"
+        }
+    },
+    {
+        id: "ev3",
+        title: "Tech Talk: Future of AI in Web",
+        description: "Industry experts discuss how AI is transforming the web development landscape and what to expect in the coming years.",
+        date: "2026-05-02",
+        time: "04:00 PM - 06:00 PM",
+        location: "Online (Discord)",
+        category: "Tech Talk",
+        type: "upcoming",
+        theme: "green",
+        tags: ["AI", "WebDev", "FutureTech"],
+        registration: {
+            status: "Waitlist",
+            capacity: 50,
+            registered: 50,
+            deadline: "2026-05-01",
+            link: "#waitlist"
+        }
+    }
+]
 
-// UpcomingEventCard Component
-interface UpcomingEventCardProps {
-    event: Event
-    index: number
-    align?: "left" | "right"
-    colorTheme?: "blue" | "purple" | "green" | "orange" | "pink"
-}
-
-function UpcomingEventCard({ event, index, align = "left", colorTheme = "blue" }: UpcomingEventCardProps) {
+// Sub-component for individual event card
+function UpcomingEventCard({ event, index, align, colorTheme }: {
+    event: ExtendedEvent,
+    index: number,
+    align: "left" | "right",
+    colorTheme: "blue" | "purple" | "green" | "orange" | "pink"
+}) {
     const theme = THEMES[colorTheme]
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
+            initial={{ opacity: 0, x: align === "left" ? -50 : 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
             className={cn(
-                "group relative bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-l rounded-2xl overflow-hidden transition-all duration-700 z-10",
+                "relative group/card flex flex-col p-8 rounded-3xl border-2 transition-all duration-500",
+                theme.bg,
                 theme.border,
-                "hover:border-white/30 hover:shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)]",
-                align === "right" ? "md:text-right" : "md:text-left"
+                theme.hoverBorder,
+                "backdrop-blur-xl bg-black/40"
             )}
         >
-            {/* Animated Glow Shimmer Border */}
-            <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-                <div className={`absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_25%,${colorTheme === 'blue' ? '#3b82f6' : colorTheme === 'purple' ? '#a855f7' : '#22c55e'}_50%,transparent_75%,transparent_100%)] animate-[spin_4s_linear_infinite]`} />
-            </div>
-
-            <div className="absolute inset-[1px] bg-[#0a0a0a] rounded-[15px] z-[1]" />
-
-            {/* Background Graphic Effects */}
-            <div className="absolute inset-0 z-[2] opacity-30 pointer-events-none overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]" />
-                <div className={cn("absolute -top-20 -right-20 w-64 h-64 blur-[120px] rounded-full transition-all duration-700 group-hover:scale-125 opacity-30", theme.graphicInfo)} />
-                <div className={cn("absolute -bottom-20 -left-20 w-48 h-48 blur-[100px] rounded-full opacity-20", theme.graphicInfo)} />
-            </div>
-
+            {/* Glow Effect */}
             <div className={cn(
-                "p-8 relative z-[3] flex flex-col h-full",
-                align === "right" ? "md:items-end" : "md:items-start"
-            )}>
-                {/* Header Section */}
-                <div className="flex items-center gap-3 mb-6">
-                    <div className={cn("flex items-center gap-2 px-3 py-1 rounded-full border bg-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-white/20", theme.badge)}>
-                        <Sparkles className="w-3.5 h-3.5 text-secondary animate-pulse" />
-                        <span className="text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-white/80">
-                            {event.category}
-                        </span>
+                "absolute -inset-1 rounded-[32px] opacity-0 transition-opacity duration-500 blur-xl z-0",
+                colorTheme === 'blue' ? 'bg-blue-500/10' :
+                    colorTheme === 'purple' ? 'bg-purple-500/10' :
+                        'bg-green-500/10',
+                theme.glow
+            )} />
+
+            <div className="relative z-10">
+                <div className="flex items-center justify-between mb-6">
+                    <span className={cn(
+                        "px-4 py-1.5 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase border",
+                        theme.badge
+                    )}>
+                        {event.category}
+                    </span>
+                    <div className="flex items-center gap-2 text-[10px] font-mono text-white/40">
+                        <Clock className="w-3.5 h-3.5" />
+                        {event.time}
                     </div>
                 </div>
 
-                {/* Main Content */}
-                <div className="flex-grow w-full">
-                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-space-grotesk tracking-tight leading-tight group-hover:text-secondary transition-colors">
-                        {event.title}
-                    </h3>
-                    <p className={cn(
-                        "text-white/40 text-sm mb-10 leading-relaxed font-light line-clamp-2 max-w-[85%] transition-colors group-hover:text-white/70",
-                        align === "right" ? "md:ml-auto" : ""
-                    )}>
-                        {event.description}
-                    </p>
+                <h3 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-4 group-hover/card:text-white transition-colors">
+                    {event.title}
+                </h3>
 
-                    {/* Meta Info Grid */}
-                    <div className="grid grid-cols-2 gap-4 mb-10">
-                        <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl flex flex-col gap-1 transition-all group-hover:bg-white/[0.05] group-hover:border-white/10">
-                            <Calendar className={cn("w-5 h-5 mb-1", theme.text)} />
-                            <span className="text-[10px] text-white/30 uppercase tracking-widest font-mono">Timestamp</span>
-                            <span className="text-sm font-bold text-white/90">{new Date(event.date).toLocaleDateString()}</span>
+                <p className="text-white/60 text-sm md:text-base mb-8 leading-relaxed font-light">
+                    {event.description}
+                </p>
+
+                <div className="flex flex-col gap-4 mt-auto">
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <MapPin className={cn("w-4 h-4", theme.text)} />
+                            <span className="text-xs text-white/60">{event.location}</span>
                         </div>
-                        <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl flex flex-col gap-1 transition-all group-hover:bg-white/[0.05] group-hover:border-white/10">
-                            <Clock className={cn("w-5 h-5 mb-1", theme.text)} />
-                            <span className="text-[10px] text-white/30 uppercase tracking-widest font-mono">Schedule</span>
-                            <span className="text-sm font-bold text-white/90">{event.time}</span>
-                        </div>
-                        <div className="col-span-2 bg-white/[0.02] border border-white/5 p-4 rounded-2xl flex flex-col gap-1 transition-all group-hover:bg-white/[0.05] group-hover:border-white/10">
-                            <MapPin className={cn("w-5 h-5 mb-1", theme.text)} />
-                            <span className="text-[10px] text-white/30 uppercase tracking-widest font-mono">Location_Point</span>
-                            <span className="text-sm font-bold text-white/90 truncate">{event.location}</span>
+                        <div className="flex items-center gap-2">
+                            <Users className={cn("w-4 h-4", theme.text)} />
+                            <span className="text-xs text-white/60">{event.registration?.registered}/{event.registration?.capacity}</span>
                         </div>
                     </div>
-                </div>
 
-                {/* Footer Section */}
-                <div className="flex items-center justify-between w-full pt-8 mt-auto border-t border-white/5">
-                    <div className="flex flex-col gap-2">
-                        <div className="flex -space-x-2">
-                            {[1, 2, 3, 4].map((i) => (
-                                <div key={i} className="w-8 h-8 rounded-full bg-[#111] border border-white/10 flex items-center justify-center transition-transform hover:-translate-y-1">
-                                    <div className={cn("w-full h-full opacity-30 bg-gradient-to-br", theme.bg)} />
-                                </div>
-                            ))}
-                            <div className={cn("w-8 h-8 rounded-full border border-white/10 bg-[#111] flex items-center justify-center text-[10px] font-bold text-white z-10")}>
-                                +{event.registration?.registered}
-                            </div>
+                    <div className="h-px w-full bg-white/5 my-2" />
+
+                    <div className="flex items-center justify-between">
+                        <div className="flex flex-col">
+                            <span className="text-[10px] uppercase tracking-wider text-white/30 font-mono">STATUS</span>
+                            <span className={cn("text-xs font-bold", theme.text)}>
+                                {event.registration?.status.toUpperCase()}
+                            </span>
                         </div>
-                        <span className="text-[9px] text-white/30 uppercase tracking-[0.2em] font-mono">System.Registrations</span>
+                        <motion.a
+                            href={event.registration?.link}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className={cn(
+                                "flex items-center gap-2 px-6 py-2 rounded-xl text-xs font-bold transition-all duration-300",
+                                colorTheme === 'blue' ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30' :
+                                    colorTheme === 'purple' ? 'bg-purple-500/20 text-purple-400 hover:bg-purple-500/30' :
+                                        'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                            )}
+                        >
+                            REGISTER NOW
+                            <ArrowRight className="w-4 h-4" />
+                        </motion.a>
                     </div>
-
-                    <button className={cn(
-                        "relative group/btn flex items-center gap-3 px-8 py-4 rounded-full text-[11px] font-bold uppercase tracking-[0.3em] transition-all duration-500 overflow-hidden",
-                        "bg-white/5 border border-white/10 hover:border-transparent hover:text-black"
-                    )}>
-                        <div className={cn("absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 bg-gradient-to-r",
-                            colorTheme === 'blue' ? 'from-blue-400 to-cyan-400' :
-                                colorTheme === 'purple' ? 'from-purple-400 to-pink-400' :
-                                    'from-green-400 to-emerald-400'
-                        )} />
-                        <span className="relative z-10 transition-colors">Access_Link</span>
-                        <ArrowRight className="w-4 h-4 relative z-10 transition-transform group-hover/btn:translate-x-1" />
-                    </button>
                 </div>
             </div>
         </motion.div>
     )
 }
 
-// Event data
-const EVENTS: ExtendedEvent[] = [
-    {
-        id: "1",
-        title: "Intro to DSA",
-        description: "Master the fundamentals of Data Structures and Algorithms with our comprehensive workshop series.",
-        date: "2026-01-29",
-        time: "10:00 AM",
-        location: "Auditorium 1",
-        category: "Workshop",
-        type: "upcoming",
-        tags: ["C++", "Java", "Algorithms"],
-        registration: {
-            status: "Open",
-            capacity: 100,
-            registered: 45,
-            deadline: "2026-01-28",
-            link: "#"
-        },
-        theme: "blue"
-    },
-    {
-        id: "2",
-        title: "Resume Workshop",
-        description: "Learn industry secrets to craft a resume that gets you hired. Live reviews included.",
-        date: "2026-01-24",
-        time: "2:00 PM",
-        location: "Seminar Hall",
-        category: "Career",
-        type: "upcoming",
-        tags: ["Interview", "Soft Skills"],
-        registration: {
-            status: "Open",
-            capacity: 50,
-            registered: 12,
-            deadline: "2026-01-23",
-            link: "#"
-        },
-        theme: "purple"
-    },
-    {
-        id: "3",
-        title: "System Design 101",
-        description: "Scalability, Load Balancing, and Database Sharding explained for beginners.",
-        date: "2026-02-01",
-        time: "11:00 AM",
-        location: "Lab 3",
-        category: "Tech Talk",
-        type: "upcoming",
-        tags: ["Architecture", "Backend"],
-        registration: {
-            status: "Waitlist",
-            capacity: 60,
-            registered: 60,
-            deadline: "2026-01-31",
-            link: "#"
-        },
-        theme: "green"
-    }
-]
-
-// Main EventsSection Component
 export function EventsSection() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({

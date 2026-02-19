@@ -72,7 +72,7 @@ export function PotdSection() {
                                 {["CODE", "TESTS", "SUBMISSIONS"].map((tab) => (
                                     <button
                                         key={tab}
-                                        onClick={() => setActiveTab(tab as any)}
+                                        onClick={() => setActiveTab(tab as "CODE" | "TESTS" | "SUBMISSIONS")}
                                         className={cn(
                                             "text-xs font-mono px-3 py-1 rounded transition-colors",
                                             activeTab === tab ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-foreground"

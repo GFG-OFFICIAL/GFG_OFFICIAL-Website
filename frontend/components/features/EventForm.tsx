@@ -37,7 +37,7 @@ export function EventForm({ onSuccess }: { onSuccess?: () => void }) {
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema) as any,
+        resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
             date: "",
@@ -63,8 +63,9 @@ export function EventForm({ onSuccess }: { onSuccess?: () => void }) {
             toast.success("Event created successfully!")
             form.reset()
             onSuccess?.()
-        } catch (error: any) {
-            toast.error(error.message || "Failed to create event. Please try again.")
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : "Failed to create event. Please try again."
+            toast.error(errorMessage)
         } finally {
             setIsLoading(false)
         }

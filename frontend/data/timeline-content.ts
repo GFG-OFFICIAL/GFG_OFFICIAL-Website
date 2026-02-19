@@ -18,6 +18,8 @@ export interface Subsection {
     title: string
     description: string
     date?: string // Event date
+    time?: string // Event time (e.g., "04:30 PM - 06:00 PM IST")
+    location?: string // Event location
     attendees?: number // Number of participants
     highlights?: string[] // Key highlights
     media: MediaItem[]
@@ -194,38 +196,32 @@ export const timelineData: TimelineSection[] = [
                 id: "zahid",
                 title: "Zahid Akhtar",
                 description: "Co-founder's journey from ideation to building a thriving tech community.",
-                date: "Founder Story",
+                date: "December 23, 2025",
                 media: [
                     {
                         type: "image",
                         url: "/timeline/founders/zahid/launch.jpg",
                         caption: "Zahid at chapter launch",
-                        date: "September 2022"
-                    },
-                    {
-                        type: "image",
-                        url: "/timeline/founders/zahid/planning.jpg",
-                        caption: "Planning early events",
-                        date: "August 2022"
+                        date: "December 23, 2025"
                     },
                     {
                         type: "video",
                         url: "/timeline/founders/zahid/interview.mp4",
                         thumbnail: "/timeline/founders/zahid/interview-thumb.jpg",
                         caption: "Founder's story interview",
-                        date: "December 2022"
+                        date: "December 23, 2025"
                     },
                     {
                         type: "image",
                         url: "/timeline/founders/zahid/mentoring.jpg",
                         caption: "Mentoring new members",
-                        date: "October 2022"
+                        date: "December 23, 2025"
                     },
                     {
                         type: "image",
                         url: "/timeline/founders/zahid/community.jpg",
                         caption: "Building the community",
-                        date: "November 2022"
+                        date: "December 23, 2025"
                     }
                 ]
             },

@@ -31,7 +31,7 @@ export function SectionShell({ children, id, className, title, subtitle, badge }
                     >
                         <div className="absolute -inset-1 bg-green-500/20 blur-md opacity-50" />
                         <span className="relative px-3 py-1 bg-[#0a1510] border border-green-500/20 text-[10px] font-bold tracking-[0.2em] uppercase text-green-400 font-mono">
-                            // {badge}
+                            {"//"} {badge}
                         </span>
                     </motion.div>
                 )}

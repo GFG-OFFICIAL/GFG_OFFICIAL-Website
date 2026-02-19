@@ -77,6 +77,19 @@ const ROLE_THEMES: Record<string, {
     }
 }
 
+const normalizeGDriveUrl = (url: string) => {
+    if (url.includes('drive.google.com')) {
+        // Handle "file/d/ID/view" format
+        const fileIdMatch = url.match(/\/d\/(.+?)\//);
+        if (fileIdMatch) return `https://lh3.googleusercontent.com/u/0/d/${fileIdMatch[1]}`;
+
+        // Handle "id=ID" format
+        const idParamMatch = url.match(/id=(.+?)(&|$)/);
+        if (idParamMatch) return `https://lh3.googleusercontent.com/u/0/d/${idParamMatch[1]}`;
+    }
+    return url;
+}
+
 export function TechCard({ member, index, isLeadership = false }: TechCardProps) {
     const theme = ROLE_THEMES[member.role] || ROLE_THEMES["Member"]
     const Icon = theme.icon
@@ -133,7 +146,7 @@ export function TechCard({ member, index, isLeadership = false }: TechCardProps)
 
                             <div className="w-full h-full rounded-full overflow-hidden bg-black relative z-10">
                                 <img
-                                    src={member.photo}
+                                    src={normalizeGDriveUrl(member.photo)}
                                     alt={member.name}
                                     className="w-full h-full object-cover filter brightness-90 contrast-125 group-hover:brightness-110 transition-all duration-500"
                                     onError={(e) => {

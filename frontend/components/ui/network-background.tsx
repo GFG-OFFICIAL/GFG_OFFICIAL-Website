@@ -19,7 +19,7 @@ export function NetworkBackground() {
         const connectionDistance = 160
         const mouseDistance = 250
 
-        let mouse = { x: 0, y: 0 }
+        const mouse = { x: 0, y: 0 }
 
         // Initialize particles
         for (let i = 0; i < particleCount; i++) {
