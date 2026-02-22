@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion"
-import { ArrowRight, Terminal, Zap, Globe, Cpu, Database, Network, Code2, ChevronRight, Layers, Box } from "lucide-react"
+import { ArrowRight, Terminal, Zap, Globe, Cpu, Database, Network, Code2, ChevronRight, Layers, Box, Star, Activity } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { GlitchText, TextReveal } from "@/components/ui/effects"
 import { useEffect, useState } from "react"
@@ -133,12 +133,32 @@ export function HeroSection() {
                         </span>
                     </h1>
 
-                    <div className="flex items-center justify-center gap-3 md:gap-4 mt-2 md:mt-4 w-full">
-                        <div className="h-[1px] w-12 md:w-24 bg-gradient-to-r from-transparent to-primary/50" />
-                        <span className="text-sm md:text-xl font-mono text-muted-foreground tracking-[0.2em] md:tracking-[0.3em] uppercase whitespace-nowrap">
-                            Code • Create • Conquer
-                        </span>
-                        <div className="h-[1px] w-12 md:w-24 bg-gradient-to-l from-transparent to-primary/50" />
+                    <div className="flex flex-col items-center gap-4 mt-2 md:mt-4 w-full">
+                        <div className="flex items-center justify-center gap-3 md:gap-4 w-full">
+                            <div className="h-[1px] w-12 md:w-24 bg-gradient-to-r from-transparent to-primary/50" />
+                            <span className="text-sm md:text-xl font-mono text-muted-foreground tracking-[0.2em] md:tracking-[0.3em] uppercase whitespace-nowrap">
+                                Code • Create • Conquer
+                            </span>
+                            <div className="h-[1px] w-12 md:w-24 bg-gradient-to-l from-transparent to-primary/50" />
+                        </div>
+
+                        {/* Club Activity Ticker */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.2 }}
+                            className="flex items-center gap-6 overflow-hidden whitespace-nowrap py-2 border-y border-white/5 w-full max-w-lg"
+                        >
+                            <div className="flex items-center gap-8 animate-infinite-scroll">
+                                <span className="text-[10px] font-mono text-primary/60 flex items-center gap-2"><Star className="w-3 h-3" /> 500+ ACTIVE GEEKS</span>
+                                <span className="text-[10px] font-mono text-secondary/60 flex items-center gap-2"><Activity className="w-3 h-3" /> 25+ PROJECTS SHIPPED</span>
+                                <span className="text-[10px] font-mono text-white/60 flex items-center gap-2"><Zap className="w-3 h-3" /> 15+ NATIONAL WINS</span>
+                                {/* Duplicate for seamless scroll */}
+                                <span className="text-[10px] font-mono text-primary/60 flex items-center gap-2"><Star className="w-3 h-3" /> 500+ ACTIVE GEEKS</span>
+                                <span className="text-[10px] font-mono text-secondary/60 flex items-center gap-2"><Activity className="w-3 h-3" /> 25+ PROJECTS SHIPPED</span>
+                                <span className="text-[10px] font-mono text-white/60 flex items-center gap-2"><Zap className="w-3 h-3" /> 15+ NATIONAL WINS</span>
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
 
@@ -175,11 +195,12 @@ export function HeroSection() {
                             <span className="text-blue-400">./execute_vision.sh</span>
                         </div>
                         <div className="text-muted-foreground pl-2 md:pl-4 border-l border-primary/20 space-y-1 relative z-10">
-                            <div className="flex items-center gap-2"><span className="text-primary">{'>'}</span> Compiling student talents... <span className="text-green-400 ml-auto md:ml-2">[100%]</span></div>
-                            <div className="flex items-center gap-2"><span className="text-primary">{'>'}</span> Linking industry mentors... <span className="text-green-400 ml-auto md:ml-2">Established</span></div>
+                            <div className="flex items-center gap-2"><span className="text-primary">{'>'}</span> System.status: <span className="text-green-400">OPTIMAL</span></div>
+                            <div className="flex items-center gap-2"><span className="text-primary">{'>'}</span> Active_Nodes: <span className="text-white">528 Students</span></div>
+                            <div className="flex items-center gap-2"><span className="text-primary">{'>'}</span> Current_Project: <span className="text-secondary italic">Innovation_Hub_v2.0</span></div>
                             <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2 mt-2">
-                                <span className="text-primary">{'>'}</span> Target Acquired:
-                                <span className="text-white font-bold bg-primary/20 px-2 py-0.5 rounded inline-block w-fit">Empowering Next-Gen Engineers</span>
+                                <span className="text-primary">{'>'}</span> Sector_Goal:
+                                <span className="text-white font-bold bg-primary/20 px-2 py-0.5 rounded inline-block w-fit">Forging Industry-Ready Technocrats</span>
                             </div>
                         </div>
                         <div className="flex items-start md:items-center gap-2 mt-3 md:mt-4 pt-3 md:pt-4 border-t border-primary/10 relative z-10">

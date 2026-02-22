@@ -172,7 +172,7 @@ export function BentoSection() {
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-20" />
 
-            <div className="container relative z-10 px-6">
+            <div className="max-w-7xl mx-auto w-full relative z-10 px-6">
                 {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -183,10 +183,10 @@ export function BentoSection() {
                     <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/5 border border-secondary/20 backdrop-blur-md mb-6 text-xs font-mono text-secondary font-bold tracking-[0.3em] uppercase">
                         OUR IMPACT
                     </span>
-                    <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold font-space-grotesk mb-6">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-space-grotesk mb-6">
                         <span className="text-secondary">#</span> Chapter Highlights
                     </h2>
-                    <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto font-light">
+                    <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto font-light">
                         Celebrating excellence across Tech, Design, Outreach, and Operations
                     </p>
                 </motion.div>

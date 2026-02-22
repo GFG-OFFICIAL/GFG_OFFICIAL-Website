@@ -83,7 +83,7 @@ const AboutSection = () => {
             <div className="mb-4 inline-flex items-center gap-2 px-4 md:px-6 py-1.5 md:py-2 rounded-full border border-white/60 text-white tracking-widest text-xs md:text-sm font-semibold backdrop-blur-sm">
               <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full"></span>WHO WE ARE
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3 font-mono">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3 font-mono">
               # About The <span className="text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.7)]">Chapter</span>
             </h2>
             <span className="block mx-auto mt-1 md:mt-2 w-24 md:w-32 h-1 bg-green-500 rounded-full shadow-[0_0_12px_#22c55e]"></span>

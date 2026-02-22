@@ -38,7 +38,7 @@ export function FAQSection() {
 
             <div className="container mx-auto relative z-10 px-6 w-full max-w-4xl">
                 <div className="text-center mb-[4vh] space-y-4">
-                    <h2 className="text-4xl md:text-5xl font-bold font-space-grotesk">
+                    <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk tracking-tight">
                         Frequent Queries
                     </h2>
                     <p className="text-muted-foreground">Everything you need to know about the chapter.</p>
@@ -58,7 +58,7 @@ export function FAQSection() {
                                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                                 className="w-full flex items-center justify-between p-6 text-left"
                             >
-                                <span className={`font-space-grotesk font-bold text-lg ${openIndex === idx ? 'text-primary' : 'text-foreground'}`}>
+                                <span className={`font-space-grotesk font-bold text-base md:text-lg ${openIndex === idx ? 'text-primary' : 'text-foreground'}`}>
                                     {faq.question}
                                 </span>
                                 <span className={`p-1 rounded-full border ${openIndex === idx ? 'border-primary text-primary' : 'border-white/20 text-muted-foreground'}`}>

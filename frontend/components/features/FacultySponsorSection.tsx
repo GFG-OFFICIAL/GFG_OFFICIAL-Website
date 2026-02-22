@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, ShieldCheck, MapPin, KeyBase } from "lucide-react";
+import { GraduationCap, ShieldCheck, MapPin } from "lucide-react";
 import React from "react";
 
 interface FacultyMember {
@@ -71,7 +71,7 @@ const FacultySponsorSection = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
             ADMINISTRATIVE PROFILES
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tight font-mono mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tight font-mono mb-4">
             Faculty <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600 drop-shadow-[0_0_10px_rgba(234,179,8,0.4)]">Mentors</span>
           </h2>
           <div className="flex items-center justify-center gap-4 w-full max-w-md mx-auto">

@@ -391,7 +391,7 @@ export function Footer() {
     return (
         <footer className="relative bg-black border-t border-white/10 pt-[6vh] pb-[3vh] overflow-hidden">
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-            <div className="container mx-auto relative z-10 px-6 w-full max-w-7xl">
+            <div className="max-w-7xl mx-auto w-full relative z-10 px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-[4vh]">
                     <div className="md:col-span-1 space-y-6">
                         <div className="flex items-center gap-2 text-2xl font-bold font-space-grotesk tracking-tighter">
