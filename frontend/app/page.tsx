@@ -6,7 +6,7 @@ import { TracksSection } from "@/components/features/TracksSection"
 import { EventsSection } from "@/components/features/EventsSection"
 
 import { TeamSection } from "@/components/features/TeamSection"
-import { WelcomeSplash, StatsSection, MarqueeSection } from "@/components/features/misc-sections"
+import { WelcomeSplash, MarqueeSection } from "@/components/features/misc-sections"
 
 import { NetworkBackground } from "@/components/ui/effects"
 import { FAQSection } from "@/components/features/FAQSection"
@@ -33,8 +33,6 @@ export default function Home() {
         <FadeIn delay={0.2}><MarqueeSection /></FadeIn>
 
         <FadeIn delay={0.3}><AboutSection /></FadeIn>
-
-        <FadeIn delay={0.4}><StatsSection /></FadeIn>
 
         <FadeIn delay={0.2}><FacultySponsorSection /></FadeIn>
 

@@ -36,8 +36,8 @@ const highlights = [
   },
   {
     icon: Megaphone,
-    title: "Community & Outreach",
-    description: "Building a vibrant ecosystem of 500+ innovators. Our outreach team amplifies our voice and connects us with industry leaders worldwide.",
+    title: "Community Outreach",
+    description: "Building a vibrant ecosystem of 500+ innovators. connecting us with industry leaders.",
     iconColor: "text-pink-400",
     borderColor: "border-pink-500/40",
     topGlow: "from-pink-500/50 via-pink-500/10 to-transparent",
@@ -47,7 +47,7 @@ const highlights = [
   {
     icon: Briefcase,
     title: "Industry Ready",
-    description: "Bridging the gap between campus and corporate with industry-grade projects, mentorship programs, and career-focused workshops.",
+    description: "Bridging campus and corporate with industry-grade projects and mentorship.",
     iconColor: "text-teal-400",
     borderColor: "border-teal-500/40",
     topGlow: "from-teal-500/50 via-teal-500/10 to-transparent",
@@ -56,8 +56,8 @@ const highlights = [
   },
   {
     icon: Star,
-    title: "Our Impact",
-    description: "Measuring our success through the achievements of our members — from internships at top companies to winning international hackathons.",
+    title: "Our Impact & Success",
+    description: "Measuring our success through the achievements of our members — from internships at top tech tier companies to winning international level hackathons.",
     iconColor: "text-yellow-400",
     borderColor: "border-yellow-500/40",
     topGlow: "from-yellow-500/50 via-yellow-500/10 to-transparent",
@@ -68,7 +68,7 @@ const highlights = [
 
 const AboutSection = () => {
   return (
-    <section className="relative py-24 px-6 md:px-12 overflow-visible">
+    <section className="relative py-16 md:py-24 px-4 md:px-12 overflow-visible">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
@@ -76,27 +76,23 @@ const AboutSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <div className="flex flex-col items-center text-center">
-
-             {/* Pill Badge */}
-            <div className="mb-4 inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/60 text-white tracking-widest text-sm font-semibold backdrop-blur-sm">
-                   <span className="w-2 h-2 bg-white rounded-full"></span>WHO WE ARE
+            {/* Pill Badge */}
+            <div className="mb-4 inline-flex items-center gap-2 px-4 md:px-6 py-1.5 md:py-2 rounded-full border border-white/60 text-white tracking-widest text-xs md:text-sm font-semibold backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full"></span>WHO WE ARE
             </div>
-        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3 font-mono">
-                # About The <span className="text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.7)]">Chapter</span>
-         </h2>
-         <span className="block mx-auto mt-2 w-32 h-1 bg-green-500 rounded-full shadow-[0_0_12px_#22c55e]"></span>
-         </div>
-          <div className="w-16 h-1 bg-primary mx-auto mb-8 rounded-full" />
-          <p className="max-w-3xl mx-auto text-muted-foreground text-lg leading-relaxed mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3 font-mono">
+              # About The <span className="text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.7)]">Chapter</span>
+            </h2>
+            <span className="block mx-auto mt-1 md:mt-2 w-24 md:w-32 h-1 bg-green-500 rounded-full shadow-[0_0_12px_#22c55e]"></span>
+          </div>
+          <p className="max-w-3xl mx-auto text-muted-foreground text-base md:text-lg leading-relaxed mt-6 mb-4 px-2">
             We are not just a club; we are a{" "}
-            <span className="text-green-500 font-semibold">high-performance compiler</span>{" "}
-            for your career. A community of passionate developers, designers, and innovators
-            dedicated to bridging the gap between academic curriculum and industry demands.
+            <span className="text-green-500 font-semibold">high-performance compiler</span> for your career. A community of passionate developers, designers, and innovators dedicated to bridging the gap between academic curriculum and industry demands.
           </p>
-          <p className="max-w-3xl mx-auto text-muted-foreground text-lg leading-relaxed">
+          <p className="max-w-3xl mx-auto text-muted-foreground text-base md:text-lg leading-relaxed px-2">
             We organize hackathons, coding contests, and technical workshops to ensure you
             ship code that matters. From AI-driven solutions to full-stack applications, we
             turn concepts into reality.
@@ -104,21 +100,21 @@ const AboutSection = () => {
         </motion.div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5 auto-rows-[minmax(220px,auto)]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 auto-rows-[minmax(180px,auto)]">
           {highlights.map((item, index) => {
-            // Bento spans: 0,5 = wide (4col), 1,2,3,4 = standard (3col/2col)
+            // Optimized span classes for mobile to preserve bento grid layout
             const spanClass =
               index === 0
-                ? "lg:col-span-4"
+                ? "col-span-2 md:col-span-2 md:row-span-2"
                 : index === 1
-                ? "lg:col-span-2"
-                : index === 2
-                ? "lg:col-span-3"
-                : index === 3
-                ? "lg:col-span-3"
-                : index === 4
-                ? "lg:col-span-2"
-                : "lg:col-span-4";
+                  ? "col-span-1 md:col-span-1"
+                  : index === 2
+                    ? "col-span-1 md:col-span-1"
+                    : index === 3
+                      ? "col-span-1 md:col-span-1"
+                      : index === 4
+                        ? "col-span-1 md:col-span-1"
+                        : "col-span-2 md:col-span-4";
 
             return (
               <motion.div
@@ -127,39 +123,38 @@ const AboutSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`group relative rounded-xl bg-card/60 backdrop-blur-sm p-6 overflow-hidden
-                  transition-all duration-300 min-h-[220px] ${spanClass}
-                  hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/40`}
+                className={`group relative rounded-xl xl:rounded-3xl bg-card/60 backdrop-blur-sm p-4 md:p-6 lg:p-8 overflow-hidden
+                  transition-all duration-300 min-h-[180px] md:min-h-[220px] ${spanClass}
+                  hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 flex flex-col justify-between`}
               >
                 {/* Animated border-gradient overlay */}
                 <div
-                  className={`absolute inset-0 rounded-xl border-2 border-transparent
+                  className={`absolute inset-0 rounded-xl xl:rounded-3xl border-2 border-transparent
                     bg-clip-border opacity-60 group-hover:opacity-100 transition-opacity duration-500
                     pointer-events-none`}
                   style={{
                     background: `linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(135deg, ${item.iconColor.replace('text-', '').replace('-400', '')}80, transparent 60%) border-box`,
                   }}
                 />
-                {/* Simpler CSS border gradient */}
-                <div className={`absolute inset-0 rounded-xl border ${item.borderColor} group-hover:border-opacity-100 transition-all duration-300 pointer-events-none`} />
-                {/* Top border bright glow line */}
+                <div className={`absolute inset-0 rounded-xl xl:rounded-3xl border ${item.borderColor} group-hover:border-opacity-100 transition-all duration-300 pointer-events-none`} />
                 <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${item.topGlow} group-hover:h-[3px] transition-all duration-300`} />
 
                 {/* Background glow blobs */}
-                <div className={`absolute -bottom-10 -right-10 w-48 h-48 ${item.bottomGlow} blur-[60px] rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-500`} />
-                <div className={`absolute -top-10 -left-10 w-32 h-32 ${item.bottomGlow} blur-[50px] rounded-full opacity-40 group-hover:opacity-70 transition-opacity duration-500`} />
+                <div className={`absolute -bottom-10 -right-10 w-32 h-32 md:w-48 md:h-48 ${item.bottomGlow} blur-[40px] md:blur-[60px] rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-500`} />
 
                 {/* Large faded background icon */}
-                <div className="absolute -bottom-4 -right-4 pointer-events-none">
-                  <item.icon className={`w-36 h-36 ${item.bgIcon}`} strokeWidth={1} />
+                <div className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 pointer-events-none transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
+                  <item.icon className={`w-24 h-24 md:w-36 md:h-36 ${item.bgIcon}`} strokeWidth={1} />
                 </div>
 
-                <div className="relative z-10">
-                  <div className={`w-11 h-11 rounded-lg bg-background/70 border ${item.borderColor} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                    <item.icon className={`w-5 h-5 ${item.iconColor}`} />
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className={`w-9 h-9 md:w-11 md:h-11 rounded-lg bg-background/70 border ${item.borderColor} flex items-center justify-center mb-3 md:mb-5 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
+                    <item.icon className={`w-4 h-4 md:w-5 md:h-5 ${item.iconColor}`} />
                   </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                  <div className="mt-auto">
+                    <h3 className={`font-bold text-foreground mb-1 md:mb-2 ${index === 0 || index === 5 ? 'text-lg md:text-xl lg:text-2xl' : 'text-base md:text-lg'}`}>{item.title}</h3>
+                    <p className={`text-muted-foreground leading-relaxed ${index === 0 || index === 5 ? 'text-sm md:text-base' : 'text-xs md:text-sm'} line-clamp-4 md:line-clamp-none`}>{item.description}</p>
+                  </div>
                 </div>
               </motion.div>
             );
