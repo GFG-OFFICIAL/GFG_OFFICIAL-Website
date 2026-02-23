@@ -383,7 +383,7 @@ export function Footer() {
     }
     const socialLinks = [
         { icon: Github, href: "https://github.com/GFG-OFFICIAL" },
-        { icon: Twitter, href: "https://x.com/gfg_iter" },
+        { icon: Instagram, href: "https://www.instagram.com/p/DShF7VrgI0L/?igsh=MWI3NTVyN250Z21kaA==" },
         { icon: Linkedin, href: "https://www.linkedin.com/company/gfgiter/posts/?feedView=all" },
         { icon: Mail, href: "mailto:gfgiter@gmail.com" }
     ]
@@ -402,8 +402,23 @@ export function Footer() {
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed">Empowering students to build, innovate, and ship software that matters. Code the future with us.</p>
                         <div className="flex gap-4">
-                            {socialLinks.map((social, i) => (
-                                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-black transition-all duration-300">
+                            {[
+                                { icon: MessageCircle, href: "https://chat.whatsapp.com/Hr0puwutetlK6dc1MTXXJZ", hoverBg: "hover:bg-[#25D366]/10", hoverText: "hover:text-[#25D366]" },
+                                { icon: Instagram, href: "https://www.instagram.com/p/DShF7VrgI0L/?igsh=MWI3NTVyN250Z21kaA==", hoverBg: "hover:bg-[#E1306C]/10", hoverText: "hover:text-[#E1306C]" },
+                                { icon: Linkedin, href: "https://www.linkedin.com/company/gfgiter/posts/?feedView=all", hoverBg: "hover:bg-[#0A66C2]/10", hoverText: "hover:text-[#0A66C2]" },
+                                { icon: Mail, href: "mailto:gfgiter@gmail.com", hoverBg: "hover:bg-[#EA4335]/10", hoverText: "hover:text-[#EA4335]" }
+                            ].map((social, i) => (
+                                <a 
+                                    key={i} 
+                                    href={social.href} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className={cn(
+                                        "w-10 h-10 rounded-full bg-white/5 flex items-center justify-center transition-all duration-300 border border-transparent hover:border-white/20",
+                                        social.hoverBg,
+                                        social.hoverText
+                                    )}
+                                >
                                     <social.icon className="w-4 h-4" />
                                 </a>
                             ))}

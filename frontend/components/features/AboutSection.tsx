@@ -7,7 +7,7 @@ const highlights = [
   {
     icon: Cpu,
     title: "Technical Excellence",
-    description: "Mastering cutting-edge technologies from AI/ML to full-stack development. Our tech team pushes boundaries and builds production-grade solutions.",
+    description: "Mastering cutting-edge technologies from AI/ML to full-stack development. Our tech team pushes boundaries and builds production-grade solutions. We foster an environment of continuous learning and hands-on implementation.",
     iconColor: "text-blue-400",
     borderColor: "border-blue-500/40",
     topGlow: "from-blue-500/50 via-blue-500/10 to-transparent",

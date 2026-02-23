@@ -40,6 +40,11 @@ export function EvolutionTimeline() {
             document.body.style.width = '100%'
             document.documentElement.style.overflow = 'hidden'
 
+            // Hide navbar
+            const navbar = document.querySelector('header')
+            if (navbar) navbar.style.opacity = '0'
+            if (navbar) navbar.style.pointerEvents = 'none'
+
             return () => {
                 // Restore original styles
                 document.body.style.overflow = originalBodyOverflow
@@ -48,6 +53,10 @@ export function EvolutionTimeline() {
                 document.body.style.top = ''
                 document.body.style.width = ''
                 document.documentElement.style.overflow = originalHtmlOverflow
+
+                // Show navbar
+                if (navbar) navbar.style.opacity = '1'
+                if (navbar) navbar.style.pointerEvents = 'auto'
 
                 // Restore scroll position
                 window.scrollTo(0, scrollY)

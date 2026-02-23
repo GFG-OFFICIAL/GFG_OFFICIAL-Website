@@ -79,13 +79,13 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-black/40 border border-primary/20 backdrop-blur-md mb-6 md:mb-8 hover:border-primary/50 transition-all group cursor-default shadow-[0_0_15px_rgba(0,255,128,0.1)]"
+                    className="hidden lg:inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-black/40 border border-primary/20 backdrop-blur-md mb-8 md:mb-12 hover:border-primary/50 transition-all group cursor-default shadow-[0_0_15px_rgba(0,255,128,0.1)] mt-[10vh] md:mt-0"
                 >
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                     </span>
-                    <span className="text-[10px] md:text-xs font-mono text-primary/80 tracking-widest uppercase">
+                    <span className="text-[10px] md:text-xs font-mono text-primary/80 tracking-widest uppercase whitespace-nowrap">
                         Iter Campus Node • Active
                     </span>
                 </motion.div>
@@ -95,15 +95,15 @@ export function HeroSection() {
                     {/* Floating Decorative Elements */}
                     <motion.div
                         style={{ x: useTransform(mouseX, [-0.5, 0.5], [-20, 20]), y: useTransform(mouseY, [-0.5, 0.5], [-20, 20]) }}
-                        className="absolute -left-4 md:-left-12 -top-4 md:-top-12 text-primary/20 pointer-events-none"
+                        className="absolute left-[-2rem] md:-left-6 top-4 md:top-12 text-primary/10 md:text-primary/20 pointer-events-none"
                     >
-                        <Code2 className="w-16 h-16 md:w-24 md:h-24 rotate-12" />
+                        <Code2 className="w-12 h-12 md:w-24 md:h-24 rotate-12" />
                     </motion.div>
                     <motion.div
                         style={{ x: useTransform(mouseX, [-0.5, 0.5], [20, -20]), y: useTransform(mouseY, [-0.5, 0.5], [20, -20]) }}
-                        className="absolute -right-4 md:-right-12 bottom-0 md:bottom-12 text-secondary/20 pointer-events-none"
+                        className="absolute right-[-2rem] md:-right-12 bottom-[-3rem] md:bottom-12 text-secondary/10 md:text-secondary/20 pointer-events-none"
                     >
-                        <Cpu className="w-16 h-16 md:w-24 md:h-24 -rotate-12" />
+                        <Cpu className="w-12 h-12 md:w-24 md:h-24 -rotate-12" />
                     </motion.div>
 
 
@@ -214,19 +214,35 @@ export function HeroSection() {
                     </div>
                 </motion.div>
 
+
+                {/* Floating Stats Responsive Based */}
+                <div className="md:absolute md:bottom-5 left-0 w-full flex justify-center md:justify-between px-4 md:px-10 pointer-events-none opacity-60 md:opacity-100 z-0 -mb-[16px] md:mb-0">
+                    <div className="hidden md:flex justify-between w-full">
+                        <FeatureBadge icon={Code2} label="Code" value="100%" />
+                        <FeatureBadge icon={Network} label="Connect" value="Active" />
+                        <FeatureBadge icon={Box} label="Build" value="Ready" />
+                    </div>
+                    {/* Mobile optimized mini-stats - Now flows naturally BEFORE CTAs */}
+                    <div className="flex md:hidden gap-8 justify-center w-full">
+                        <div className="flex items-center gap-2 text-primary text-[11px] font-mono font-bold tracking-[0.15em]"><Code2 className="w-4 h-4" /> CODE</div>
+                        <div className="flex items-center gap-2 text-secondary text-[11px] font-mono font-bold tracking-[0.15em]"><Network className="w-4 h-4" /> CONNECT</div>
+                        <div className="flex items-center gap-2 text-white text-[11px] font-mono font-bold tracking-[0.15em]"><Box className="w-4 h-4" /> BUILD</div>
+                    </div>
+                </div>
+
                 {/* CTAs */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full px-6 z-10"
+                    className="flex flex-col xl:flex-row items-center justify-center gap-[5px] xl:gap-6 w-full px-6 z-10"
                 >
                     <button
                         onClick={() => {
                             const joinBtn = document.querySelector('[data-join-trigger]') as HTMLElement;
                             joinBtn?.click();
                         }}
-                        className="group relative w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-primary text-black font-mono font-bold text-sm md:text-base uppercase tracking-widest rounded-none hover:bg-white transition-colors duration-300 overflow-hidden shadow-[0_0_20px_rgba(0,255,128,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+                        className="group relative w-full max-w-[320px] xl:w-auto px-6 md:px-8 py-3 md:py-4 bg-primary text-black font-mono font-bold text-sm md:text-base uppercase tracking-widest rounded-none hover:bg-white transition-colors duration-300 overflow-hidden shadow-[0_0_20px_rgba(0,255,128,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] mx-auto xl:mx-0"
                         style={{ clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)' }}
                     >
                         <span className="relative z-10 flex items-center justify-center gap-2">
@@ -241,7 +257,7 @@ export function HeroSection() {
                             const eventsSection = document.querySelector('#events');
                             eventsSection?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="group relative w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-transparent text-white border border-white/20 font-mono font-bold text-sm md:text-base uppercase tracking-widest hover:border-primary/50 transition-colors duration-300"
+                        className="group relative w-full max-w-[320px] xl:w-auto px-6 md:px-8 py-3 md:py-4 bg-transparent text-white border border-white/20 font-mono font-bold text-sm md:text-base uppercase tracking-widest hover:border-primary/50 transition-colors duration-300 mx-auto xl:mx-0"
                         style={{ clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)' }}
                     >
                         <span className="relative z-10 flex items-center justify-center gap-2">
@@ -250,21 +266,6 @@ export function HeroSection() {
                         </span>
                     </button>
                 </motion.div>
-
-                {/* Floating Stats / Features */}
-                <div className="absolute bottom-6 md:bottom-10 left-0 w-full flex justify-center md:justify-between px-4 md:px-10 pointer-events-none opacity-60 md:opacity-100 z-0">
-                    <div className="hidden md:flex justify-between w-full">
-                        <FeatureBadge icon={Code2} label="Code" value="100%" />
-                        <FeatureBadge icon={Network} label="Connect" value="Active" />
-                        <FeatureBadge icon={Box} label="Build" value="Ready" />
-                    </div>
-                    {/* Mobile optimized mini-stats */}
-                    <div className="flex md:hidden gap-6 justify-center w-full">
-                        <div className="flex items-center gap-1.5 text-primary text-[10px] font-mono tracking-widest"><Code2 className="w-3 h-3" /> CODE</div>
-                        <div className="flex items-center gap-1.5 text-secondary text-[10px] font-mono tracking-widest"><Network className="w-3 h-3" /> CONNECT</div>
-                        <div className="flex items-center gap-1.5 text-white text-[10px] font-mono tracking-widest"><Box className="w-3 h-3" /> BUILD</div>
-                    </div>
-                </div>
             </motion.div>
         </section>
     )
