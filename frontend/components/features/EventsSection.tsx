@@ -31,7 +31,6 @@ export interface Event {
     category: "Workshop" | "Hackathon" | "Seminar" | "Competition" | "Networking" | "Tech Talk" | "Career"
     type: "upcoming"
     image?: string
-
     registration?: {
         status: "Open" | "Closed" | "Waitlist"
         capacity: number
@@ -39,7 +38,6 @@ export interface Event {
         deadline: string
         link: string
     }
-
     tags: string[]
 }
 
@@ -47,7 +45,7 @@ interface ExtendedEvent extends Event {
     theme: "blue" | "purple" | "green" | "orange" | "pink"
 }
 
-// Theme configuration
+// Theme configuration 
 const THEMES = {
     blue: {
         bg: "from-blue-500/10 to-transparent",
@@ -95,66 +93,71 @@ const THEMES = {
         glow: "group-hover:opacity-100"
     }
 }
-// Mock Event Data
+
+
+
 const EVENTS: ExtendedEvent[] = [
     {
-        id: "ev1",
-        title: "Introduction to Competitive Programming",
-        description: "A deep dive into common data structures and algorithms used in competitive programming competitions.",
-        date: "2026-03-15",
-        time: "10:00 AM - 01:00 PM",
-        location: "Block 1, Seminar Hall",
-        category: "Workshop",
+        id: "1",
+        title: "AI Becomes Native in Operating Systems",
+        description: "Operating systems in 2025 deeply integrated AI assistants into core workflows, enabling smart automation, contextual suggestions, and system-level intelligence.",
+        date: "2025-03-15",
+        time: "Global Rollout",
+        location: "Worldwide",
+        category: "Tech Talk",
         type: "upcoming",
-        theme: "blue",
-        tags: ["CP", "Algorithms", "DSA"],
+        tags: ["AI", "OS", "Automation"],
+        registration: {
+            status: "Open",
+            capacity: 100,
+            registered: 87,
+            deadline: "2025-12-31",
+            link: "#"
+        },
+        theme: "blue"
+    },
+    {
+        id: "2",
+        title: "Next-Gen AI Chips Redefine Data Centers",
+        description: "Major semiconductor firms introduced high-efficiency AI chips optimized for inference workloads, significantly boosting performance while reducing power usage.",
+        date: "2025-06-20",
+        time: "Industry Launch",
+        location: "Global Tech Industry",
+        category: "Tech Talk",
+        type: "upcoming",
+        tags: ["AI Hardware", "Chips", "Data Centers"],
         registration: {
             status: "Open",
             capacity: 100,
             registered: 65,
-            deadline: "2026-03-14",
-            link: "#register"
-        }
+            deadline: "2025-12-31",
+            link: "#"
+        },
+        theme: "purple"
     },
     {
-        id: "ev2",
-        title: "GFG Hack-A-Thon 2026",
-        description: "Join us for 24 hours of coding, innovation, and fun as we build solutions for real-world problems.",
-        date: "2026-04-10",
-        time: "09:00 AM onwards",
-        location: "Main Auditorium",
-        category: "Hackathon",
+        id: "3",
+        title: "AI-Powered Development Tools Surge",
+        description: "AI coding tools evolved into intelligent development partners capable of generating, debugging, and optimizing production-grade code in real time.",
+        date: "2025-09-10",
+        time: "Global Adoption",
+        location: "Developer Ecosystem",
+        category: "Workshop",
         type: "upcoming",
-        theme: "purple",
-        tags: ["Hackathon", "Dev", "Innovation"],
+        tags: ["DevTools", "AI Coding", "Productivity"],
         registration: {
             status: "Open",
-            capacity: 200,
-            registered: 120,
-            deadline: "2026-04-05",
-            link: "#register"
-        }
-    },
-    {
-        id: "ev3",
-        title: "Tech Talk: Future of AI in Web",
-        description: "Industry experts discuss how AI is transforming the web development landscape and what to expect in the coming years.",
-        date: "2026-05-02",
-        time: "04:00 PM - 06:00 PM",
-        location: "Online (Discord)",
-        category: "Tech Talk",
-        type: "upcoming",
-        theme: "green",
-        tags: ["AI", "WebDev", "FutureTech"],
-        registration: {
-            status: "Waitlist",
-            capacity: 50,
-            registered: 50,
-            deadline: "2026-05-01",
-            link: "#waitlist"
-        }
+            capacity: 100,
+            registered: 92,
+            deadline: "2025-12-31",
+            link: "#"
+        },
+        theme: "green"
     }
 ]
+
+
+
 
 // Sub-component for individual event card
 function UpcomingEventCard({ event, index, align, colorTheme }: {
