@@ -26,6 +26,8 @@ export function Navbar() {
     const [showJoinModal, setShowJoinModal] = useState(false)
     const [hoveredLink, setHoveredLink] = useState<string | null>(null)
     const router = useRouter()
+    const pathname = usePathname()
+    const isHomePage = pathname === "/"
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -35,10 +37,12 @@ export function Navbar() {
 
     const navLinks = [
         { label: "Home", href: "/" },
-        { label: "Innovation", href: "#innovation" },
-        { label: "Events", href: "#events" },
-        { label: "Team", href: "#team" },
+        { label: "Innovation", href: isHomePage ? "#innovation" : "/#innovation" },
+        { label: "Events", href: isHomePage ? "#events" : "/#events" },
+        { label: "Team", href: "/team" },
+        { label: "Connect", href: "/connect" },
     ]
+
 
     const scrollToSection = (e: React.MouseEvent, href: string) => {
         if (href.startsWith('#')) {
@@ -66,7 +70,13 @@ export function Navbar() {
                             : "bg-transparent border-transparent w-full max-w-7xl"
                     )}
                 >
-                    <button onClick={() => router.push('/')} className="flex items-center gap-2 group shrink-0 cursor-pointer">
+                    <button
+                        onClick={() => {
+                            router.push('/')
+                            setMobileMenuOpen(false)
+                        }}
+                        className="flex items-center gap-2 group shrink-0 cursor-pointer"
+                    >
                         <div className="relative w-8 h-8 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 overflow-hidden group-hover:border-primary/50 transition-colors">
                             <Image src={gfgLogo} alt="GFG Logo" width={20} height={20} className="object-contain" />
                         </div>
@@ -142,7 +152,13 @@ export function Navbar() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    {...(link.href.startsWith('#') && { onClick: (e) => scrollToSection(e, link.href) })}
+                                    onClick={(e) => {
+                                        if (link.href.startsWith('#')) {
+                                            scrollToSection(e, link.href)
+                                        } else {
+                                            setMobileMenuOpen(false)
+                                        }
+                                    }}
                                     className="p-4 rounded-xl bg-white/5 hover:bg-white/10 text-sm font-medium text-white transition-colors"
                                 >
                                     {link.label}
@@ -372,12 +388,17 @@ function SidebarContent({ pathname, setOpen, onLogout }: { pathname: string; set
 
 // --- Footer ---
 export function Footer() {
+    const pathname = usePathname()
+    const isHomePage = pathname === "/"
+
     const scrollToSection = (e: React.MouseEvent, href: string) => {
         if (href.startsWith('#')) {
-            e.preventDefault()
-            const element = document.querySelector(href)
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' })
+            if (isHomePage) {
+                e.preventDefault()
+                const element = document.querySelector(href)
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' })
+                }
             }
         }
     }
@@ -408,11 +429,11 @@ export function Footer() {
                                 { icon: Linkedin, href: "https://www.linkedin.com/company/gfgiter/posts/?feedView=all", hoverBg: "hover:bg-[#0A66C2]/10", hoverText: "hover:text-[#0A66C2]" },
                                 { icon: Mail, href: "mailto:gfgiter@gmail.com", hoverBg: "hover:bg-[#EA4335]/10", hoverText: "hover:text-[#EA4335]" }
                             ].map((social, i) => (
-                                <a 
-                                    key={i} 
-                                    href={social.href} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
+                                <a
+                                    key={i}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className={cn(
                                         "w-10 h-10 rounded-full bg-white/5 flex items-center justify-center transition-all duration-300 border border-transparent hover:border-white/20",
                                         social.hoverBg,
@@ -427,11 +448,19 @@ export function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-sm flex items-center gap-2"><span className="w-1 h-4 bg-primary rounded-full" />Explore</h4>
                         <ul className="space-y-3 text-sm text-muted-foreground">
-                            {[{ label: 'Events', href: '#events' }, { label: 'Projects', href: '#innovation' }, { label: 'Team', href: '#system-architects' }].map((link) => (
+                            {[
+                                { label: 'Events', href: isHomePage ? '#events' : '/#events' },
+                                { label: 'Projects', href: isHomePage ? '#innovation' : '/#innovation' },
+                                { label: 'Team', href: '/team' }
+                            ].map((link) => (
                                 <li key={link.label}>
-                                    <a href={link.href} onClick={(e) => scrollToSection(e, link.href)} className="hover:text-primary transition-colors flex items-center gap-2 group cursor-pointer">
+                                    <Link
+                                        href={link.href}
+                                        onClick={(e) => scrollToSection(e, link.href)}
+                                        className="hover:text-primary transition-colors flex items-center gap-2 group cursor-pointer"
+                                    >
                                         <span className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-primary">&gt;</span>{link.label}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
