@@ -25,9 +25,8 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex flex-col w-full max-w-[100vw] overflow-x-hidden">
-        <Navbar />
-
         <HeroSection />
+
 
         <FadeIn delay={0.2}><MarqueeSection /></FadeIn>
 

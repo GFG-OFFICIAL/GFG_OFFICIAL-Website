@@ -1,0 +1,108 @@
+[
+    {
+        "id": "GFG-EXEC-001",
+        "name": "Subasis Mishra",
+        "role": "President",
+        "position": "COMMANDER",
+        "photo": "https://github.com/subasis3124.png",
+        "email": "subasis@gfg.com",
+        "specialty": "Strategic Vision",
+        "bio": "Leading the future of tech.",
+        "achievements": [],
+        "skills": ["Leadership", "System Design"],
+        "joinedDate": "2024",
+        "social": { "github": "https://github.com/subasis3124", "linkedin": "https://linkedin.com/in/subasismishra" },
+        "stats": { "projectsLed": 12, "eventsOrganized": 10, "contributionScore": 99 }
+    },
+    {
+        "id": "GFG-EXEC-002",
+        "name": "Vivek Ranjan Sahoo",
+        "role": "Vice President",
+        "position": "XO",
+        "photo": "/images/team/vivek.jpg",
+        "email": "vivek@gfg.com",
+        "specialty": "Operations & Tech",
+        "bio": "Orchestrating excellence.",
+        "achievements": [],
+        "skills": ["Operations", "Full Stack"],
+        "joinedDate": "2024",
+        "social": {
+            "github": "https://github.com/msVivekRanjan",
+            "linkedin": "https://www.linkedin.com/in/vivekranjansahoo7/",
+            "twitter": "https://x.com/MsVivekRanjan"
+        },
+        "stats": { "projectsLed": 15, "eventsOrganized": 8, "contributionScore": 98 }
+    },
+    {
+        "id": "GFG-ARCH-001",
+        "name": "Raj Sahasransu Biswal",
+        "role": "Tech Lead",
+        "position": "ARCHITECT",
+        "photo": "/images/team/raj.jpg",
+        "email": "raj@gfg.com",
+        "specialty": "Technical Architecture",
+        "bio": "Driving technical innovation.",
+        "achievements": [],
+        "skills": ["Java", "Cloud Arch"],
+        "joinedDate": "2024",
+        "social": {
+            "linkedin": "https://linkedin.com/in/raj-sahasransu-biswal",
+            "github": "https://github.com/sahasransuraj08"
+        },
+        "stats": { "projectsLed": 8, "eventsOrganized": 4, "contributionScore": 94 }
+    },
+    {
+        "id": "GFG-OPS-001",
+        "name": "Mukesh Kumar Padhi",
+        "role": "Management Lead",
+        "position": "STRATEGIST",
+        "photo": "/images/team/mukesh.jpg",
+        "email": "mukesh@gfg.com",
+        "specialty": "Strategic Management",
+        "bio": "Optimizing operational efficiency.",
+        "achievements": [],
+        "skills": ["Management", "Agile"],
+        "joinedDate": "2024",
+        "social": {
+            "linkedin": "https://linkedin.com/in/mukesh-kumar-padhi07",
+            "github": "https://github.com/Mukeshkup"
+        },
+        "stats": { "projectsLed": 6, "eventsOrganized": 5, "contributionScore": 92 }
+    },
+    {
+        "id": "GFG-CREATIVE-001",
+        "name": "Runjhun Pradhan",
+        "role": "Media Lead",
+        "position": "DIRECTOR",
+        "photo": "/images/team/runjhun.jpg",
+        "email": "runjhun@gfg.com",
+        "specialty": "Creative Direction",
+        "bio": "Visualizing the brand identity.",
+        "achievements": [],
+        "skills": ["Design", "Branding"],
+        "joinedDate": "2024",
+        "social": {
+            "linkedin": "https://linkedin.com/in/runjhun-pradhan",
+            "github": "https://github.com/RunjhunPradhan27"
+        },
+        "stats": { "projectsLed": 5, "eventsOrganized": 6, "contributionScore": 91 }
+    },
+    {
+        "id": "GFG-COMMS-001",
+        "name": "Ayush Ranjan Pradhan",
+        "role": "PR & Outreach",
+        "position": "DIPLOMAT",
+        "photo": "https://drive.google.com/file/d/1XOboY-R639u9OhhOqLB2g3T6DwXMN4Wx/view?usp=drivesdk",
+        "email": "ayush@gfg.com",
+        "specialty": "Public Relations",
+        "bio": "Connecting with the community.",
+        "achievements": [],
+        "skills": ["Communication", "Outreach"],
+        "joinedDate": "2024",
+        "social": {
+            "linkedin": "https://linkedin.com/in/ayush-ranjan-pradhan-008468309",
+            "github": "https://github.com/InfernoX21"
+        },
+        "stats": { "projectsLed": 4, "eventsOrganized": 8, "contributionScore": 93 }
+    }
+]

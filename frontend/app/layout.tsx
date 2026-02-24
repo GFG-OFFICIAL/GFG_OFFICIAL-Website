@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import PageTransition from "@/components/ui/page-transition";
 import { CommandPalette, MouseFollower, ScrollProgress, SmoothScroll } from "@/components/ui/interacts";
 import { NoiseOverlay } from "@/components/ui/effects";
+import { Navbar } from "@/components/layout/navigation";
 
 // Quantum-Digital Typography
 const spaceGrotesk = Space_Grotesk({
@@ -69,6 +70,7 @@ export default function RootLayout({
         <ScrollProgress />
         <NoiseOverlay />
         <CommandPalette />
+        <Navbar />
         <PageTransition>{children}</PageTransition>
         <Toaster />
       </body>
