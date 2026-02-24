@@ -286,18 +286,18 @@ export function EventsSection() {
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-xl mb-8">
                             <div className="w-2 h-2 rounded-full bg-secondary animate-ping" />
                             <span className="text-[10px] font-mono text-white/60 font-bold tracking-[0.4em] uppercase">
-                                NEXT_CHAPTER.EXE
+                                TECH_RADAR_2025
                             </span>
                         </div>
 
                         <h2 className="text-6xl md:text-9xl font-black font-space-grotesk mb-8 tracking-tighter">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">Future.</span>
-                            <span className="text-secondary italic">Events</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">Tech.</span>
+                            <span className="text-secondary italic">Radar</span>
                         </h2>
 
                         <p className="text-white/40 text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed">
-                            Syncing with the latest innovations and community gatherings. <br className="hidden md:block" />
-                            Explore our upcoming roadmap of workshops, hackathons, and seminars.
+                          Tracking breakthroughs, product launches, and major shifts in the tech ecosystem.
+Explore the biggest technology developments that shaped 2025.
                         </p>
                     </motion.div>
                 </div>
