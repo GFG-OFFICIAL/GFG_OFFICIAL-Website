@@ -3,8 +3,8 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Cpu, Palette, Megaphone, Settings } from "lucide-react"
-import { GlitchText } from "@/components/ui/glitch-text"
-import { NeonCard } from "@/components/ui/neon-card"
+import { GlitchText } from "@/components/ui/effects"
+import { NeonCard } from "@/components/ui/cards"
 import { TeamDetailModal, TeamDetail } from "./TeamDetailModal"
 import { cn } from "@/lib/utils"
 
@@ -151,7 +151,7 @@ export function TracksSection() {
             <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/5 skew-x-12 blur-3xl -z-10" />
             <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-primary/5 -skew-x-12 blur-3xl -z-10" />
 
-            <div className="container relative z-10 px-6">
+            <div className="container mx-auto relative z-10 px-6 w-full max-w-7xl">
                 <div className="text-center max-w-2xl mx-auto mb-[5vh] animate-on-scroll">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -184,7 +184,7 @@ export function TracksSection() {
                     </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div className="grid grid-cols-2 gap-6 max-w-5xl mx-auto">
                     {tracks.map((track, i) => (
                         <motion.div
                             key={track.title}

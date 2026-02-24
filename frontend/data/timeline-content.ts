@@ -13,6 +13,13 @@ export interface MediaItem {
     tags?: string[] // Searchable tags
 }
 
+export interface Speaker {
+    name: string
+    title: string // e.g. "Associate Professor, SOA University"
+    image?: string // Profile image URL
+    bio: string
+}
+
 export interface Subsection {
     id: string
     title: string
@@ -21,6 +28,7 @@ export interface Subsection {
     time?: string // Event time (e.g., "04:30 PM - 06:00 PM IST")
     location?: string // Event location
     attendees?: number // Number of participants
+    speaker?: Speaker
     highlights?: string[] // Key highlights
     media: MediaItem[]
 }
@@ -30,6 +38,11 @@ export interface TimelineSection {
     title: string
     subtitle: string
     color: "primary" | "secondary" | "accent"
+    date?: string // Event date (for sections without subsections)
+    time?: string // Event time
+    location?: string // Event location
+    attendees?: number // Number of participants
+    speaker?: Speaker
     subsections?: Subsection[]
     media?: MediaItem[]
 }
@@ -46,6 +59,9 @@ export const timelineData: TimelineSection[] = [
         title: "Chapter Foundation",
         subtitle: "Orientation",
         color: "primary",
+        date: "November 7, 2025",
+        time: "—",
+        location: "—",
         // Direct media for sections without subsections
         media: [
             {
@@ -197,6 +213,12 @@ export const timelineData: TimelineSection[] = [
                 title: "Zahid Akhtar",
                 description: "Co-founder's journey from ideation to building a thriving tech community.",
                 date: "December 23, 2025",
+                speaker: {
+                    name: "Zahid Akhtar",
+                    title: "Life & Career Coach",
+                    image: "/timeline/founders/zahid/ZahidAkhtar.png",
+                    bio: "Zahid Akhtar is a seasoned Life & Career Coach, Behavioral Trainer, and Public Speaker dedicated to helping students and professionals gain clarity, confidence, and direction in their personal and professional journeys. With over two decades of experience across corporate, entrepreneurial, and training environments, Zahid has worked with engineering students, startup founders, corporate teams, and early-career professionals to strengthen communication, leadership presence, and emotional resilience."
+                },
                 media: [
                     {
                         type: "image",

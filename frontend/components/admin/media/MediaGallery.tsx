@@ -1,6 +1,6 @@
 "use client"
 
-import { GlassCard } from "@/components/ui/glass-card"
+import { GlassCard } from "@/components/ui/cards"
 import { Button } from "@/components/ui/button"
 import { Image as ImageIcon, Trash2 } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"

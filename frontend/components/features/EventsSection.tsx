@@ -274,7 +274,7 @@ export function EventsSection() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px]" />
             </div>
 
-            <div className="container px-6 relative z-10">
+            <div className="max-w-7xl mx-auto w-full px-6 relative z-10">
                 {/* Section Header */}
                 <div className="text-center mb-[5vh]">
                     <motion.div
@@ -293,6 +293,9 @@ export function EventsSection() {
                         <h2 className="text-6xl md:text-9xl font-black font-space-grotesk mb-8 tracking-tighter">
                             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">Tech.</span>
                             <span className="text-secondary italic">Radar</span>
+                        <h2 className="text-5xl md:text-9xl font-black font-space-grotesk mb-6 md:mb-8 tracking-tighter">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">Future.</span>
+                            <span className="text-secondary italic">Events</span>
                         </h2>
 
                         <p className="text-white/40 text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed">
@@ -334,7 +337,7 @@ Explore the biggest technology developments that shaped 2025.
                         {EVENTS.map((event, index) => (
                             <div key={event.id} className={cn(
                                 "relative flex flex-col md:flex-row items-center gap-16 md:gap-24 group",
-                                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse text-left md:text-right"
                             )}>
                                 {/* Visual Connector Node (Desktop) */}
                                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 hidden md:flex">

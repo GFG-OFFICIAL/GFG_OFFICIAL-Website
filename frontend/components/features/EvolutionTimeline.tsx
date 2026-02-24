@@ -4,12 +4,11 @@ import { useState, useEffect, useMemo, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Award, Coffee, Users, ChevronRight, Calendar, Image as ImageIcon, ArrowRight, LayoutGrid, List, Clock, MapPin, UserCheck, Tag, FileText, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { SplitScreenLayout } from "@/components/ui/SplitScreenLayout"
-import { Breadcrumb } from "@/components/ui/Breadcrumb"
-import { PhotoMasonry } from "@/components/ui/PhotoMasonry"
-import { PhotoCarousel } from "@/components/ui/PhotoCarousel"
-import { AdvancedLightbox } from "@/components/ui/AdvancedLightbox"
-import { timelineData, type MediaItem, type TimelineSection, type Subsection } from "@/data/timeline-content"
+import { SplitScreenLayout } from "@/components/ui/layouts"
+import { Breadcrumb } from "@/components/ui/layouts"
+import { PhotoMasonry, PhotoCarousel, AdvancedLightbox } from "@/components/ui/media-components"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { timelineData, type MediaItem, type TimelineSection, type Subsection, type Speaker } from "@/data/timeline-content"
 
 // Navigation state types
 type ViewState =
@@ -41,6 +40,11 @@ export function EvolutionTimeline() {
             document.body.style.width = '100%'
             document.documentElement.style.overflow = 'hidden'
 
+            // Hide navbar
+            const navbar = document.querySelector('header')
+            if (navbar) navbar.style.opacity = '0'
+            if (navbar) navbar.style.pointerEvents = 'none'
+
             return () => {
                 // Restore original styles
                 document.body.style.overflow = originalBodyOverflow
@@ -49,6 +53,10 @@ export function EvolutionTimeline() {
                 document.body.style.top = ''
                 document.body.style.width = ''
                 document.documentElement.style.overflow = originalHtmlOverflow
+
+                // Show navbar
+                if (navbar) navbar.style.opacity = '1'
+                if (navbar) navbar.style.pointerEvents = 'auto'
 
                 // Restore scroll position
                 window.scrollTo(0, scrollY)
@@ -153,7 +161,7 @@ export function EvolutionTimeline() {
                 </>
             )}
 
-            <div className="container relative z-10 px-6">
+            <div className="max-w-7xl mx-auto w-full relative z-10 px-6">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -186,7 +194,7 @@ export function EvolutionTimeline() {
 
                 {/* Overview Cards */}
                 <div className={cn(
-                    "max-w-6xl mx-auto grid gap-8 transition-all duration-200",
+                    "max-w-7xl mx-auto grid gap-8 transition-all duration-200",
                     isSplitViewOpen && "blur-xl opacity-25 pointer-events-none"
                 )}>
                     {sections.map((section, index) => {
@@ -391,6 +399,35 @@ function NavigationPanel({
     )
 }
 
+interface SpeakerTileProps {
+    speaker: Speaker
+    colors: string
+}
+
+function SpeakerTile({ speaker, colors }: SpeakerTileProps) {
+    const initials = speaker.name.split(" ").map(n => n[0]).join("").slice(0, 2)
+    return (
+        <div className="glass-card rounded-xl p-6 border border-white/5 bg-white/5">
+            <h3 className="text-xl font-bold font-space-grotesk mb-4">Speaker</h3>
+            <div className="flex flex-col sm:flex-row gap-6">
+                <Avatar className="h-24 w-24 shrink-0 rounded-xl overflow-hidden border border-white/10">
+                    {speaker.image ? (
+                        <AvatarImage src={speaker.image} alt={speaker.name} className="object-cover" />
+                    ) : null}
+                    <AvatarFallback className="bg-primary/10 text-primary text-xl font-semibold rounded-xl">
+                        {initials}
+                    </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                    <p className="text-lg font-semibold text-white font-space-grotesk">{speaker.name}</p>
+                    <p className={cn("text-base font-medium mt-1", colors)}>{speaker.title}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-3">{speaker.bio}</p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 interface ContentPanelProps {
     section: TimelineSection
     subsection?: Subsection
@@ -429,9 +466,9 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                         {subsection.description}
                     </p>
 
-                    {/* Event Details Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                        {subsection.date && (
+                    {/* Event Details Cards - show for real subsections only, not "more stories coming" */}
+                    {!["more-chai", "more-founders"].includes(subsection.id) && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                             <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -439,12 +476,10 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                                     </div>
                                     <div>
                                         <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Date</p>
-                                        <p className="text-sm font-medium text-white">{subsection.date}</p>
+                                        <p className={cn("text-sm font-medium", subsection.date ? "text-white" : "text-white/50")}>{subsection.date ?? "—"}</p>
                                     </div>
                                 </div>
                             </div>
-                        )}
-                        {subsection.time && (
                             <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -452,12 +487,10 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                                     </div>
                                     <div>
                                         <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Time</p>
-                                        <p className="text-sm font-medium text-white">{subsection.time}</p>
+                                        <p className={cn("text-sm font-medium", subsection.time ? "text-white" : "text-white/50")}>{subsection.time ?? "—"}</p>
                                     </div>
                                 </div>
                             </div>
-                        )}
-                        {subsection.location && (
                             <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -465,12 +498,10 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                                     </div>
                                     <div>
                                         <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Location</p>
-                                        <p className="text-sm font-medium text-white">{subsection.location}</p>
+                                        <p className={cn("text-sm font-medium", subsection.location ? "text-white" : "text-white/50")}>{subsection.location ?? "—"}</p>
                                     </div>
                                 </div>
                             </div>
-                        )}
-                        {subsection.attendees && (
                             <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -478,46 +509,19 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                                     </div>
                                     <div>
                                         <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Participants</p>
-                                        <p className="text-sm font-medium text-white">{subsection.attendees}+</p>
+                                        <p className={cn("text-sm font-medium", subsection.attendees ? "text-white" : "text-white/50")}>{subsection.attendees ? `${subsection.attendees}+` : "—"}</p>
                                     </div>
                                 </div>
                             </div>
-                        )}
-                        {/* Additional tabs with titles only */}
-                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                    <Clock className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Time</p>
-                                    <p className="text-sm font-medium text-white/50">—</p>
-                                </div>
-                            </div>
                         </div>
-                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                    <MapPin className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Location</p>
-                                    <p className="text-sm font-medium text-white/50">—</p>
-                                </div>
-                            </div>
+                    )}
+
+                    {/* Speaker tile - below event tiles */}
+                    {!["more-chai", "more-founders"].includes(subsection.id) && subsection.speaker && (
+                        <div className="mt-6">
+                            <SpeakerTile speaker={subsection.speaker} colors={colors} />
                         </div>
-                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                    <UserCheck className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Participants</p>
-                                    <p className="text-sm font-medium text-white/50">—</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    )}
                 </div>
 
                 <div className="min-h-[400px]">
@@ -579,6 +583,63 @@ function ContentPanel({ section, subsection, onOpenLightbox }: ContentPanelProps
                         <br />
                         The event created a platform for clarity, inspiration, and meaningful dialogue, encouraging students to explore entrepreneurship with a realistic and informed perspective.
                     </p>
+                )}
+
+                {/* Event Details Cards - for Chapter Foundation */}
+                {section.id === "foundation" && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <Calendar className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Date</p>
+                                    <p className={cn("text-sm font-medium", section.date ? "text-white" : "text-white/50")}>{section.date ?? "—"}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <Clock className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Time</p>
+                                    <p className={cn("text-sm font-medium", section.time ? "text-white" : "text-white/50")}>{section.time ?? "—"}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <MapPin className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Location</p>
+                                    <p className={cn("text-sm font-medium", section.location ? "text-white" : "text-white/50")}>{section.location ?? "—"}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="glass-card rounded-xl p-4 border border-white/5 bg-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <UserCheck className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-mono uppercase text-muted-foreground/60 tracking-wider mb-1">Participants</p>
+                                    <p className={cn("text-sm font-medium", section.attendees ? "text-white" : "text-white/50")}>{section.attendees ? `${section.attendees}+` : "—"}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Speaker tile - for sections without subsections (e.g. Chapter Foundation) */}
+                {section.id === "foundation" && section.speaker && (
+                    <div className="mt-6">
+                        <SpeakerTile speaker={section.speaker} colors={colors} />
+                    </div>
                 )}
             </div>
 

@@ -303,6 +303,17 @@
     }
 }
 
+/* 11. Infinite Scroll for Tickers */
+@keyframes infinite-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 /* 11. Background Pan */
 @keyframes background-pan {
     from {
@@ -334,6 +345,10 @@
 
 .animate-spin-slow {
     animation: spin-slow 12s linear infinite;
+}
+
+.animate-infinite-scroll {
+    animation: infinite-scroll 25s linear infinite;
 }
 
 /* Text Stroke */

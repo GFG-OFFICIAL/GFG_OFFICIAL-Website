@@ -1,6 +1,6 @@
 "use client"
 
-import { GlassCard } from "@/components/ui/glass-card"
+import { GlassCard } from "@/components/ui/cards"
 import { CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"

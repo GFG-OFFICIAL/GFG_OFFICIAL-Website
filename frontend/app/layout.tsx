@@ -3,11 +3,8 @@ import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import PageTransition from "@/components/ui/page-transition";
-import { CommandPalette } from "@/components/ui/command-palette";
-import { MouseFollower } from "@/components/ui/mouse-follower";
-import { ScrollProgress } from "@/components/ui/scroll-progress";
-import { NoiseOverlay } from "@/components/ui/noise-overlay";
-import { SmoothScroll } from "@/components/ui/smooth-scroll";
+import { CommandPalette, MouseFollower, ScrollProgress, SmoothScroll } from "@/components/ui/interacts";
+import { NoiseOverlay } from "@/components/ui/effects";
 
 // Quantum-Digital Typography
 const spaceGrotesk = Space_Grotesk({
@@ -15,6 +12,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  adjustFontFallback: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({

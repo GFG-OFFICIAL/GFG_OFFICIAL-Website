@@ -1,23 +1,21 @@
-import { Navbar } from "@/components/layout/Navbar"
-import { Footer } from "@/components/layout/Footer"
+import { Navbar, Footer } from "@/components/layout/navigation"
 
 import { HeroSection } from "@/components/features/HeroSection"
-import { AboutSection } from "@/components/features/AboutSection"
+import AboutSection from "@/components/features/AboutSection";
 import { TracksSection } from "@/components/features/TracksSection"
 import { EventsSection } from "@/components/features/EventsSection"
 
 import { TeamSection } from "@/components/features/TeamSection"
-import { WelcomeSplash } from "@/components/features/WelcomeSplash"
+import { WelcomeSplash, MarqueeSection } from "@/components/features/misc-sections"
 
-import { NetworkBackground } from "@/components/ui/network-background"
-import { StatsSection } from "@/components/features/StatsSection"
-import { MarqueeSection } from "@/components/features/MarqueeSection"
+import { NetworkBackground } from "@/components/ui/effects"
 import { FAQSection } from "@/components/features/FAQSection"
 import { EvolutionTimeline } from "@/components/features/EvolutionTimeline"
-import { BentoSection } from "@/components/features/BentoSection"
-import { FadeIn } from "@/components/ui/motion-wrapper"
+import FacultySponsorSection from "@/components/features/FacultySponsorSection";
+import { FadeIn } from "@/components/ui/interacts"
 
 export default function Home() {
+  // Final deployment trigger
   return (
     <div className="min-h-screen flex flex-col bg-[#050505] font-sans selection:bg-primary/20 selection:text-primary overflow-x-hidden">
       {/* Global Background Systems */}
@@ -26,8 +24,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,black)] opacity-80" />
       </div>
 
-      <div className="relative z-10 flex flex-col">
-        <WelcomeSplash />
+      <div className="relative z-10 flex flex-col w-full max-w-[100vw] overflow-x-hidden">
         <Navbar />
 
         <HeroSection />
@@ -36,9 +33,7 @@ export default function Home() {
 
         <FadeIn delay={0.3}><AboutSection /></FadeIn>
 
-        <FadeIn delay={0.4}><StatsSection /></FadeIn>
-
-        <FadeIn delay={0.2}><BentoSection /></FadeIn>
+        <FadeIn delay={0.2}><FacultySponsorSection /></FadeIn>
 
         <FadeIn delay={0.2}><TracksSection /></FadeIn>
 
